@@ -8,6 +8,7 @@ const path = require('path');
 
 //local require
 const Spot = require('./models/spot.model');
+const spotRoutes = require('./routes/spots.routes');
 
 mongoose.connect(
     `mongodb://localhost:27017/${process.env.DB_NAME}`,
@@ -40,6 +41,8 @@ app.get('/spot', async(req, res, next) => {
     await spot.save();
     res.send(spot);
 });
+
+app.use("/spots", spotRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`listening on ${process.env.PORT}`);
