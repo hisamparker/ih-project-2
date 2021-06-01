@@ -5,6 +5,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const hbs = require('hbs');
 const path = require('path');
+const methodOverride = require('method-override');
 
 //local require
 const Spot = require('./models/spot.model');
@@ -38,6 +39,7 @@ app.set('views', path.join(__dirname, 'views'));
 //parse the data coming in
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res, next) => {
   res.render('home');

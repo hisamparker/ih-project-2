@@ -9,7 +9,8 @@
                 <li class="list-group-item text-muted">{{ spot.location }}</li>
             </ul>
             <div class="card-body">
-                <a href="/spots" class="card-link btn btn-info ">Spots</a>
+                <a href="/spots/{{ spot._id }}/edit" class="card-link btn btn-info ">Edit</a>
+                <a href="/spots" class="card-link btn btn-info ">All Spots</a>
             </div>
             <div class="card-footer text-muted">
                 display last edited
