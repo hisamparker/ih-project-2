@@ -12,6 +12,9 @@
                 <a href="/spots/{{ spot._id }}/edit" class="card-link btn btn-info ">Edit</a>
                 <a href="/spots" class="card-link btn btn-info ">All Spots</a>
             </div>
+            <form class="d-inline" action='{{ spot._id }}/delete?_method=DELETE' method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
             <div class="card-footer text-muted">
                 display last edited
             </div>

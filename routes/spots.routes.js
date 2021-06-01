@@ -38,10 +38,18 @@ router.put('/:id/edit', async (req, res, next) => {
     res.redirect(`/spots/${updatedSpot._id}`);
 });
 
+router.delete('/:id/delete', async (req, res, next) => {
+    const { id } = req.params;
+    const deletedSpot = await Spot.findByIdAndDelete(id);
+    console.log(deletedSpot);
+    res.redirect('/spots');
+});
+
 //remember to put other routes prefixed by / before this route or their will be a load error because what's after the route will be read by the client as an id
 router.get('/:id', async (req, res, next) => {
-  const spot = await Spot.findById(req.params.id);
-  res.render('spots/show', { spot });
+    const { id } = req.params;
+    const spot = await Spot.findById(id);
+    res.render('spots/show', { spot });
 });
 
 
