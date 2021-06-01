@@ -23,6 +23,16 @@
                     </div>       
                 </div>
                 <div class="mb-3">
+                    <label class="form-label" for="image">Image</label>
+                    <input class="form-control" type="text" id="image" name="image" value="{{ spot.image }}" required>
+                    <div class="valid-feedback">
+                    Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please add an image.
+                    </div> 
+                </div>
+                <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
                     <textarea class="form-control" type="text" id="description" name="description" required>{{ spot.description }}</textarea>
                     <div class="valid-feedback">

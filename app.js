@@ -10,6 +10,7 @@ const methodOverride = require('method-override');
 //local require
 const Spot = require('./models/spot.model');
 const spotRoutes = require('./routes/spots.routes');
+const ErrorHandler = require('./utils/errors');
 
 mongoose.connect(
     `mongodb://localhost:27017/${process.env.DB_NAME}`,
@@ -35,17 +36,37 @@ const app = express();
 app.set('view engine', 'hbs');
 //provides path to views - we always want the file we're trying to access the view from to be able to reach views
 app.set('views', path.join(__dirname, 'views'));
+// Path to the location for handlebars partials here:
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 //parse the data coming in
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 
+
 app.get('/', (req, res, next) => {
+    console.log('(-_-｡)');
   res.render('home');
 });
 
 app.use('/spots', spotRoutes);
+
+
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500, message = 'this is not good (-_-｡)' } = err;
+    res.status(statusCode).render('error', { err });
+});
+
+// app.all('*', (req, res, next) => {
+//   next(new ErrorHandler('Page not found (-_-｡)', 404));
+// });
+
+
+// app.use((err, req, res, next) => {
+//   handleError(err, res);
+// });
 
 app.listen(process.env.PORT, () => {
   console.log(`listening on ${process.env.PORT}`);

@@ -31,8 +31,9 @@ const seedDB = async () => {
     const spot = new Spot({
       location: `${cities[rand1000].city}, ${cities[rand1000].state}`,
       name: `${selection(descriptors)} ${selection(places)}`,
+      image: `https://source.unsplash.com/collection/4794086`,
       description:
-        "I am baby 8-bit synth direct trade bespoke PBR&B. Vinyl polaroid actually art party normcore coloring book mumblecore butcher meggings gastropub chia you probably not heard of them gentrify. Truffaut church-key quinoa gluten-free, actually bushwick semiotics heirloom twee four dollar toast brooklyn.",
+        `I am baby 8-bit synth direct trade bespoke PBR&B. Vinyl polaroid actually art party normcore coloring book mumblecore butcher meggings gastropub chia you probably not heard of them gentrify. Truffaut church-key quinoa gluten-free, actually bushwick semiotics heirloom twee four dollar toast brooklyn.`,
     });
     await spot.save();
   }

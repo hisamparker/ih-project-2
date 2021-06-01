@@ -16,17 +16,14 @@
 
 
 </head>
-
-{{!-- <body class="d-flex flex-column vh-100"> --}}
-    {{!-- {{> navbar this}} --}}
-    {{!-- <%- include('../partials/navbar')%> --}}
+{{!-- using flexbox on body --}}
+<body class="d-flex flex-column vh-100">
+    {{> navbar this}}
     <main class="container mt-5">
         {{!-- {{> flash this}} --}}
-        {{!-- <%- include('../partials/flash')%> --}}
         {{{body}}}
     </main>
-    {{!-- {{> footer this}} --}}
-    {{!-- <%- include('../partials/footer')%> --}}
+    {{> footer this}}
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>

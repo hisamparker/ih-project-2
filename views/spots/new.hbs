@@ -6,7 +6,6 @@
         <form action="new" method="POST" novalidate class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="name">Name</label>
-                {{!-- [this groups all data inside under spots] --}}
                 <input class="form-control" type="text" id="name" name="name" required>
                 <div class="valid-feedback">
                 Looks good!
@@ -24,6 +23,16 @@
                 <div class="invalid-feedback">
                 Please add a location.
                 </div>               
+            </div>
+             <div class="mb-3">
+                <label class="form-label" for="image">Image</label>
+                <input class="form-control" type="text" id="image" name="image" required>
+                <div class="valid-feedback">
+                Looks good!
+                </div>
+                <div class="invalid-feedback">
+                Please add an image.
+                </div> 
             </div>
             <div class="mb-3">
                 <label class="form-label" for="description">Description</label>

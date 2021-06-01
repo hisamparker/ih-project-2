@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const router = new Router();
+const { DateTime } = require('luxon');
 
 const Spot = require('../models/spot.model');
 
@@ -13,8 +14,8 @@ router.get('/new', (req, res, next) => {
 });
 
 router.post('/new', async (req, res, next) => {
-    const {name, location, description} = req.body;
-    const newSpot = new Spot({name, location, description});
+    const {name, location, image, description} = req.body;
+    const newSpot = new Spot({name, location, image, description});
     await newSpot.save();
     console.log(newSpot)
     res.redirect(`${newSpot._id}`);
@@ -22,13 +23,15 @@ router.post('/new', async (req, res, next) => {
 
 router.get('/:id/edit', async (req, res, next) => {
   const spot = await Spot.findById(req.params.id);
+  console.log(spot)
   res.render('spots/edit', { spot });
 });
 
 router.put('/:id/edit', async (req, res, next) => {
     const { id } = req.params;
-    const { name, location, description } = req.body;
-    console.log(name, location, description)
+    const { name, location, image, description } = req.body;
+    console.log(name, location, image, description)
+    console.log(req.body)
     const updatedSpot = await Spot.findByIdAndUpdate(id, {
       name,
       location,
@@ -49,7 +52,14 @@ router.delete('/:id/delete', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     const { id } = req.params;
     const spot = await Spot.findById(id);
-    res.render('spots/show', { spot });
+    const updatedAt = spot.updated_at;
+    const formattedUpdatedAt = DateTime.fromJSDate(updatedAt).toFormat('yyyy LLL dd');
+    // const updatedAt = spot.updated_at.toString();
+    // console.log(updatedAt, typeof updatedAt);
+    // const formattedUpdatedAt = updatedAt.split(" ");
+    // formattedUpdatedAt.slice(4);
+    console.log(formattedUpdatedAt);
+    res.render("spots/show", { spot, updatedAt: formattedUpdatedAt });
 });
 
 
