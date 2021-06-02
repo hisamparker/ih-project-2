@@ -1,15 +1,26 @@
-const {Schema, model} = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const spotSchema = new Schema(
-  {
-    name: String,
-    image: String,
-    description: String,
-    location: String,
-  },
-  {
-    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
-  }
+    {
+        name: {
+            type: String,
+            required: [true, 'Please name your spot'],
+        },
+        image: {
+            type: String,
+        },
+        description: {
+            type: String,
+            required: [true, 'Please include a description'],
+        },
+        location: {
+            type: String,
+            required: [true, 'Please include a location'],
+        },
+    },
+    {
+        timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
+    }
 );
 
 module.exports = model('Spot', spotSchema);

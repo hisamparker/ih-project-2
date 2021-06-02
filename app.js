@@ -8,15 +8,14 @@ const path = require('path');
 const methodOverride = require('method-override');
 
 // local require
-// const Spot = require('./models/spot.model');
 const spotRoutes = require('./routes/spots.routes');
-// const ErrorHandler = require('./utils/errors');
+const ErrorHandler = require('./utils/errors');
 
 mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
 });
 
 // assign value of mongoose connection to a var to make it easier to reuse
@@ -25,7 +24,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 // open the db!
 db.once('open', () => {
-        console.log(`Database: ${process.env.DB_NAME} connected`);
+    console.log(`Database: ${process.env.DB_NAME} connected`);
 });
 
 const app = express();
@@ -42,27 +41,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 
 app.get('/', (req, res, next) => {
-        console.log('(-_-｡)');
-        res.render('home');
+    console.log('(-_-｡)');
+    res.render('home');
 });
 
 app.use('/spots', spotRoutes);
 
-// app.use((err, req, res, next) => {
-//     const { status = 500, message = 'this is not good (-_-｡)' } = err;
-//     res.status(status).send(message);
-// });
-
-// app.all('*', (req, res, next) => {
-//   next(new ErrorHandler('Page not found (-_-｡)', 404));
-// });
+app.use((err, req, res, next) => {
+    const { status = 500, message = 'this is not good (-_-｡)' } = err;
+    res.status(status).send(message);
+});
 
 // app.use((err, req, res, next) => {
 //   handleError(err, res);
 // });
 
 app.listen(process.env.PORT, () => {
-        console.log(`listening on ${process.env.PORT}`);
+    console.log(`listening on ${process.env.PORT}`);
 });
 
 module.exports = app;
