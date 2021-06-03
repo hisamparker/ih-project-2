@@ -6,8 +6,13 @@ const spotSchema = new Schema(
             type: String,
             required: [true, 'Please name your spot'],
         },
+        author: {
+            type: String,
+        },
         image: {
             type: String,
+            default: 'https://unsplash.com/photos/mH8g-fDYVLU',
+            set: (v) => (v === '' ? '/images/puffgirls.png' : v),
         },
         description: {
             type: String,

@@ -2,10 +2,24 @@ const { Router } = require('express');
 
 const router = new Router();
 const { DateTime } = require('luxon');
+const { spotSchema } = require('../validationSchemas');
 
 const Spot = require('../models/spot.model');
-const ErrorHandler = require('../utils/errors');
+const ErrorHandler = require('../utils/ErrorHandlers');
 const tryCatchWrapper = require('../utils/tryCatchWrapper');
+
+// move into a middleware folder?
+const validateSpot = (req, res, next) => {
+    // Destructure the result to just get the error
+    const { error } = spotSchema.validate(req.body);
+    if (error) {
+        // Joi error.details stores an array, so we need to map over it (in case there are more than 1) and then join the messages together on the comma
+        const errorMessage = error.details.map((el) => el.message).join(',');
+        throw new ErrorHandler(errorMessage, 400);
+    } else {
+        next();
+    }
+};
 
 router.get(
     '/',
@@ -20,12 +34,12 @@ router.get('/new', (req, res, next) => {
 });
 
 router.post(
-    '/new',
+    '/',
+    validateSpot,
     tryCatchWrapper(async (req, res, next) => {
-        const { name, location, image, description } = req.body;
-        const newSpot = new Spot({ name, location, image, description });
+        const newSpot = new Spot(req.body.spot);
         await newSpot.save();
-        res.redirect(`${newSpot._id}`);
+        res.redirect(`spots/${newSpot._id}`);
     })
 );
 
@@ -42,17 +56,13 @@ router.get(
 
 router.put(
     '/:id/edit',
+    validateSpot,
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;
-        const { name, location, image, description } = req.body;
+        console.log(req.body);
         const updatedSpot = await Spot.findByIdAndUpdate(
             id,
-            {
-                name,
-                location,
-                image,
-                description,
-            },
+            { ...req.body.spot },
             // make sure to validate with schema on update
             { runValidators: true }
         );
@@ -85,22 +95,22 @@ router.get(
     })
 );
 
-const handleValidationErr = (err) => {
-    console.log('YOU ARE INVALID', err);
-    return err;
-};
-
 router.use((error, req, res, next) => {
     console.log(`Mongoose error name : ${error.name}`);
-    if (error.name === 'ValidationError') {
-        error = handleValidationErr(error);
+    if (error.name === 'ValidationError' || error.name === 'CastError') {
+        error.message = error.name;
     }
     next(error);
 });
 
+router.all('*', (req, res, next) => {
+    next(new ErrorHandler('Page Not Found', 404));
+});
+
 router.use((err, req, res, next) => {
-    const { status = 500, message = 'this is not good (-_-｡)' } = err;
-    res.status(status).send(message);
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'this is not good (-_-｡)';
+    res.status(statusCode).render('error', { err });
 });
 
 module.exports = router;

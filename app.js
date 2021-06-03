@@ -6,10 +6,12 @@ const mongoose = require('mongoose');
 const hbs = require('hbs');
 const path = require('path');
 const methodOverride = require('method-override');
+// create validation schemas!
+const Joi = require('joi');
 
 // local require
 const spotRoutes = require('./routes/spots.routes');
-const ErrorHandler = require('./utils/errors');
+const ErrorHandler = require('./utils/ErrorHandlers');
 
 mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`, {
     useNewUrlParser: true,
@@ -37,7 +39,7 @@ hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 // parse the data coming in
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 app.get('/', (req, res, next) => {
@@ -47,9 +49,14 @@ app.get('/', (req, res, next) => {
 
 app.use('/spots', spotRoutes);
 
+app.all('*', (req, res, next) => {
+    next(new ErrorHandler('Page Not Found', 404));
+});
+
 app.use((err, req, res, next) => {
-    const { status = 500, message = 'this is not good (-_-｡)' } = err;
-    res.status(status).send(message);
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'this is not good (-_-｡)';
+    res.status(statusCode).render('error', { err });
 });
 
 // app.use((err, req, res, next) => {

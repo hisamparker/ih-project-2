@@ -1,25 +1,43 @@
-<div class="row">
-    <div class="col-6 offset-3">
-        <div class="card mb-3">
-            <img src="{{ spot.image }}" alt="{{ spot.name }}" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">{{ spot.name }}</h5>
-                <p class="card-text">{{ spot.description }}</p>
+<div class='row'>
+    <div class='col-6 offset-3'>
+        <div class='card mb-3'>
+            <img src='{{ spot.image }}' alt='{{ spot.name }}' class='card-img-top'>
+            <div class='card-body'>
+                <h5 class='card-title'>{{ spot.name }}</h5>
+                <p class='card-text'>{{ spot.description }}</p>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item text-muted">{{ spot.location }}</li>
+            <ul class='list-group list-group-flush'>
+                <li class='list-group-item text-muted'>{{ spot.location }}</li>
             </ul>
-            <div class="card-body">
-                <a href="/spots/{{ spot._id }}/edit" class="card-link btn btn-info ">Edit</a>
-                <a href="/spots" class="card-link btn btn-info ">All Spots</a>
-                <form class="d-inline ml-3" action='{{ spot._id }}/delete?_method=DELETE' method="POST">
-                    <button class="btn btn-danger">Delete</button>
+            <div class='card-body'>
+                <a href='/spots/{{ spot._id }}/edit' class='card-link btn btn-info '>Edit</a>
+                <a href='/spots' class='card-link btn btn-info '>All Spots</a>
+                <form class='d-inline ml-3' action='{{ spot._id }}/delete?_method=DELETE' method='POST'>
+                    <button class='btn btn-danger'>Delete</button>
                 </form>
             </div>
-            <div class="card-footer text-muted">
+            <div class='card-footer text-muted'>
                 Last update : {{ updatedAt }}
             </div>
         </div>
+        <section class='reviews mb-4'>
+            <h2 class='display-6 px-2 mt-5 mb-4'>
+                Been to {{ spot.name }}?
+                <small class='text-muted'>What did you think?</small>
+            </h2>
+            <article class='card mb-3 p-3'>
+                <form action=''>
+                    <section class='mb-3'>
+                        <label for='rating_range' class='form-label' min='0' max='5'>Rating</label>
+                        <input aria-label="range input for rating" type='range' class='form-range' id='rating_range' name='review[rating]'>
+                    </section>
+                    <section>
+                        <label class='form-label' for='body'>Notes</label>
+                        <textarea class='form-control' name='review[body]' id='body' cols='30' rows='4'></textarea>
+                    </section>
+                </form>
+            </article>
+        </section>
     </div>
 </div>
     

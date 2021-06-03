@@ -1,20 +1,12 @@
 class ErrorHandler extends Error {
-  constructor(message, statusCode) {
-    super();
-    this.message = message;
-    this.statusCode = statusCode;
-  }
+    constructor(message, statusCode) {
+        super();
+        this.message = message;
+        this.statusCode = statusCode;
+    }
 }
 
 module.exports = ErrorHandler;
-
-// class ErrorHandler extends Error {
-//   constructor(statusCode, message) {
-//     super();
-//     this.statusCode = statusCode;
-//     this.message = message;
-//   }
-// }
 
 // const handleError = (err, res) => {
 //   const { statusCode, message } = err;
@@ -30,7 +22,7 @@ module.exports = ErrorHandler;
 //   handleError,
 // };
 
-//OTHER OPTION
+// OTHER OPTION
 // class ErrorHandler extends Error {
 //   constructor(message, statusCode) {
 //     super(message);

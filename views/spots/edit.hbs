@@ -4,7 +4,7 @@
             <form action="edit?_method=PUT" method="POST" novalidate class="validated_form">
                 <div class="mb-3">
                     <label class="form-label" for="name">Name</label>
-                    <input class="form-control" type="text" id="name" name="name" value="{{ spot.name }}" required>
+                    <input class="form-control" type="text" id="name" name="spot[name]" value="{{ spot.name }}" required>
                     <div class="valid-feedback">
                     Looks good!
                     </div>
@@ -14,7 +14,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="location">Location</label>
-                    <input class="form-control" type="text" id="location" name="location" value="{{ spot.location }}" required>
+                    <input class="form-control" type="text" id="location" name="spot[location]" value="{{ spot.location }}" required>
                     <div class="valid-feedback">
                     Looks good!
                     </div>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="image">Image</label>
-                    <input class="form-control" type="text" id="image" name="image" value="{{ spot.image }}" required>
+                    <input class="form-control" type="text" id="image" name="spot[image]" value="{{ spot.image }}" required>
                     <div class="valid-feedback">
                     Looks good!
                     </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
-                    <textarea class="form-control" type="text" id="description" name="description" required>{{ spot.description }}</textarea>
+                    <textarea class="form-control" type="text" id="description" name="spot[description]" required>{{ spot.description }}</textarea>
                     <div class="valid-feedback">
                     Looks good!
                     </div>

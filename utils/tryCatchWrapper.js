@@ -1,5 +1,5 @@
 module.exports = (asyncFunction) => (req, res, next) => {
-    // if something goes wrong in function, pass the error threw to next!
+    // function that accepts an async function, then executes it, then if something goes wrong in function, passes the error to next!
     asyncFunction(req, res, next).catch(next);
 };
 
