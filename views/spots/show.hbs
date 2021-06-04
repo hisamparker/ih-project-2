@@ -20,23 +20,50 @@
                 Last update : {{ updatedAt }}
             </div>
         </div>
-        <section class='reviews mb-4'>
-            <h2 class='display-6 px-2 mt-5 mb-4'>
-                Been to {{ spot.name }}?
-                <small class='text-muted'>What did you think?</small>
-            </h2>
-            <article class='card mb-3 p-3'>
-                <form action=''>
-                    <section class='mb-3'>
-                        <label for='rating_range' class='form-label' min='0' max='5'>Rating</label>
-                        <input aria-label="range input for rating" type='range' class='form-range' id='rating_range' name='review[rating]'>
-                    </section>
-                    <section>
-                        <label class='form-label' for='body'>Notes</label>
-                        <textarea class='form-control' name='review[body]' id='body' cols='30' rows='4'></textarea>
-                    </section>
-                </form>
+        <article class='card mb-3'>
+            <div class='card-body'>
+                <h4 class='card-title display-6'>
+                    Tell us!
+                    <small class='text-muted'>Is {{ spot.name }} cute?</small>
+                </h4>
+                <div class='card-body'>
+                    <form action='/reviews/{{ spot._id }}' method='POST' novalidate class='validated_form'>
+                        <section class='mb-3'>
+                            <label for='rating' class='form-label'>Rating</label>
+                            <input aria-label='range input for rating' type='range' min='0' max='5' step='1' class='form-range' id='rating' name='review[rating]'>
+                        </section>
+                        <section class='mb-3'>
+                            <label class='form-label' for='body'>Notes</label>
+                            <textarea class='form-control' name='review[body]' id='body' cols='30' rows='2' required></textarea>
+                            <div class='valid-feedback'>
+                            Looks good!
+                            </div>
+                            <div class='invalid-feedback'>
+                            Please name your spot.
+                            </div>
+                        </section>
+                        <div>
+                            <button class='btn btn-info'>Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </article>
+        <section class='card reviews mb4'>
+            <h4 class='display-6 px-2 mt-5 mb-4'>What people are saying :</h4>
+            {{#each spot.reviews}}
+            <article class='card-body mb-3'>
+                <section class='card-body'>
+                    <h6 class='card-title'>Rating : {{ rating }} / 5</h6>
+                    <p class='card-text'>Review : {{ body }}</p>
+                </section>
             </article>
+            <div class='card-footer text-muted'>
+                <form class='d-inline ml-3' action='/reviews/{{ this._id }}/{{ ../spot._id }}?_method=DELETE' method='POST'>
+                    <button class='btn btn-danger'>Delete Review</button>
+                </form>
+            </div>
+            {{/each}}
         </section>
     </div>
 </div>

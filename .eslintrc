@@ -3,11 +3,12 @@
 	"extends": ["wesbos"],
 	"rules": {
 		"no-console": 0,
+		"quotes": ["error", "backtick"],
 		"prettier/prettier": [
 			"error",
 			{
 				"trailingComma": "es5",
-				"singleQuote": true,
+				"quotes": "backtick",
 				"printWidth": 120,
 				"tabWidth": 4
 			}

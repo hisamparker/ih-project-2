@@ -85,7 +85,7 @@ router.get(
     '/:id',
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;
-        const spot = await Spot.findById(id);
+        const spot = await Spot.findById(id).populate('reviews');
         if (!spot) {
             throw new ErrorHandler(`That spot doesn't exist, you can add it though!`, 404);
         }

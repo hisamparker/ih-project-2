@@ -10,7 +10,8 @@ const methodOverride = require('method-override');
 const Joi = require('joi');
 
 // local require
-const spotRoutes = require('./routes/spots.routes');
+const spotRoutes = require('./routes/spot.routes');
+const reviewRoutes = require('./routes/review.routes');
 const ErrorHandler = require('./utils/ErrorHandlers');
 
 mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`, {
@@ -48,6 +49,7 @@ app.get('/', (req, res, next) => {
 });
 
 app.use('/spots', spotRoutes);
+app.use('/reviews', reviewRoutes);
 
 app.all('*', (req, res, next) => {
     next(new ErrorHandler('Page Not Found', 404));
