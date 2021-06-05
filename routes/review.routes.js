@@ -8,6 +8,7 @@ const Spot = require(`../models/spot.model`);
 const Review = require(`../models/review.model`);
 const ErrorHandler = require(`../utils/ErrorHandlers`);
 const tryCatchWrapper = require(`../utils/tryCatchWrapper`);
+const { isLoggedIn } = require(`../middleware/isLoggedIn`);
 
 // move into a middleware folder?
 const validateReview = (req, res, next) => {
@@ -26,24 +27,27 @@ router.post(
     `/`,
     validateReview,
     tryCatchWrapper(async (req, res, next) => {
-        console.log(`body: ${JSON.stringify(req.body)}, params : ${JSON.stringify(req.params)}`);
+        // console.log(`body: ${JSON.stringify(req.body)}, params : ${JSON.stringify(req.params)}`);
         const reviewedSpot = await Spot.findById(req.params.id);
         const review = new Review(req.body.review);
         reviewedSpot.reviews.push(review);
         await review.save();
         await reviewedSpot.save();
-        res.redirect(`/spots/${reviewedSpot._id}`);
+        req.flash(`success`, `Thanks for reviewing ${reviewedSpot.name}`);
+        return res.redirect(`/spots/${reviewedSpot._id}`);
     })
 );
 
 router.delete(
     `/:reviewId`,
+    isLoggedIn,
     tryCatchWrapper(async (req, res, next) => {
         const { id, reviewId } = req.params;
         // The $pull operator removes from an existing array all instances of a value or values that match a specified condition.
-        await Spot.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+        const spotWithDeletedReview = await Spot.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
         await Review.findByIdAndDelete(reviewId);
-        res.redirect(`/spots/${id}`);
+        req.flash(`success`, `Your review of ${spotWithDeletedReview.name} was deleted.`);
+        return res.redirect(`/spots/${id}`);
     })
 );
 

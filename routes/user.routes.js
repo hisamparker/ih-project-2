@@ -14,7 +14,8 @@ router.post(`/signup`, async (req, res, next) => {
         const newUser = new User({ username, email });
         // helper to register a new user with a given password and checks if username is unique takes in a user object and password
         const registeredUser = await User.register(newUser, password);
-        res.send(`hi ${newUser.username} : ${registeredUser}`);
+        req.flash(`success`, `Hi ${newUser.username}, welcome to cute spot!`);
+        res.redirect(`/spots`);
     } catch (e) {
         // the error message comes from passport local mongoose because they ensure that username is unique
         req.flash(`error`, e.message);
@@ -34,7 +35,8 @@ router.post(
     passport.authenticate(`local`, { failureFlash: true, failureRedirect: `/login` }),
     (req, res, next) => {
         const { username } = req.body;
-        res.send(username);
+        req.flash(`success`, `Hey, ${username}, welcome back!`);
+        res.redirect(`/spots`);
     }
 );
 

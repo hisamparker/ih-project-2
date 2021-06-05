@@ -4,12 +4,12 @@ const { Router } = require(`express`);
 const router = new Router();
 const { DateTime } = require(`luxon`);
 const { spotSchema } = require(`../validationSchemas`);
-const passport = require(`passport`);
+// const passport = require(`passport`);
 
 const Spot = require(`../models/spot.model`);
 const ErrorHandler = require(`../utils/ErrorHandlers`);
 const tryCatchWrapper = require(`../utils/tryCatchWrapper`);
-const { isLoggedIn } = require(`../middlewares/isLoggedIn`);
+const { isLoggedIn } = require(`../middleware/isLoggedIn`);
 
 // move into a middleware folder?
 const validateSpot = (req, res, next) => {
@@ -41,7 +41,11 @@ router.post(
     validateSpot,
     tryCatchWrapper(async (req, res, next) => {
         const newSpot = new Spot(req.body.spot);
-        await newSpot.save();
+        const savedSpot = await newSpot.save();
+        if (!savedSpot) {
+            req.flash(`error`, `Spot not added, please try again.`);
+            return res.redirect(`/new`);
+        }
         // flash a success message before redirecting to the new spot
         req.flash(`success`, `You added a new cute spot, thanks!`);
         res.redirect(`spots/${newSpot._id}`);
@@ -50,6 +54,7 @@ router.post(
 
 router.get(
     `/:id/edit`,
+    isLoggedIn,
     tryCatchWrapper(async (req, res, next) => {
         const spot = await Spot.findById(req.params.id);
         if (!spot) {
@@ -74,7 +79,7 @@ router.put(
         );
         await updatedSpot.save();
         req.flash(`success`, `You've made your spot even cuter!`);
-        res.redirect(`/spots/${updatedSpot._id}`);
+        return res.redirect(`/spots/${updatedSpot._id}`);
     })
 );
 
@@ -86,7 +91,7 @@ router.get(
         const spot = await Spot.findById(id).populate(`reviews`);
         if (!spot) {
             req.flash(`error`, `Sorry, spot not found.`);
-            res.redirect(`/spots`);
+            return res.redirect(`/spots`);
         }
         const updatedAt = spot.updated_at;
         const formattedUpdatedAt = DateTime.fromJSDate(updatedAt).toFormat(`LLL dd yyyy`);
@@ -96,11 +101,12 @@ router.get(
 
 router.delete(
     `/:id/delete`,
+    isLoggedIn,
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;
         const deletedSpot = await Spot.findByIdAndDelete(id);
         req.flash(`success`, `${deletedSpot.name} was successfully deleted`);
-        res.redirect(`/spots`);
+        return res.redirect(`/spots`);
     })
 );
 
