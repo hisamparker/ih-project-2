@@ -20,7 +20,8 @@
     <body class="d-flex flex-column vh-100">
         {{> navbar this}}
         <main class="container mt-5">
-            {{!-- {{> flash this}} --}}
+            {{> flash this}}
+            {{ success }}
             {{{body}}}
         </main>
         {{> footer this}}

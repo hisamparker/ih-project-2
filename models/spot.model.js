@@ -6,7 +6,7 @@ const spotSchema = new Schema(
     {
         name: {
             type: String,
-            required: [true, `Please name your spot`],
+            // required: [true, `Please name your spot`],
         },
         author: {
             type: String,
@@ -18,11 +18,11 @@ const spotSchema = new Schema(
         },
         description: {
             type: String,
-            required: [true, `Please include a description`],
+            // required: [true, `Please include a description`],
         },
         location: {
             type: String,
-            required: [true, `Please include a location`],
+            // required: [true, `Please include a location`],
         },
         reviews: [
             {

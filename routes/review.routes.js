@@ -1,6 +1,7 @@
 const { Router } = require(`express`);
 
-const router = new Router();
+// Routes all get separate params, but I want to get spot._id from the spot route params, so I set mergeParams to true
+const router = new Router({ mergeParams: true });
 const { reviewSchema } = require(`../validationSchemas`);
 
 const Spot = require(`../models/spot.model`);
@@ -22,9 +23,10 @@ const validateReview = (req, res, next) => {
 };
 
 router.post(
-    `/:id`,
+    `/`,
     validateReview,
     tryCatchWrapper(async (req, res, next) => {
+        console.log(`body: ${JSON.stringify(req.body)}, params : ${JSON.stringify(req.params)}`);
         const reviewedSpot = await Spot.findById(req.params.id);
         const review = new Review(req.body.review);
         reviewedSpot.reviews.push(review);
@@ -35,7 +37,7 @@ router.post(
 );
 
 router.delete(
-    `/:reviewId/:id`,
+    `/:reviewId`,
     tryCatchWrapper(async (req, res, next) => {
         const { id, reviewId } = req.params;
         // The $pull operator removes from an existing array all instances of a value or values that match a specified condition.

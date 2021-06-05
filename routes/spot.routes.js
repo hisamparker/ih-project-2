@@ -1,12 +1,15 @@
-const { Router } = require('express');
+// router object, to separate out routes so they're not all in app
+const { Router } = require(`express`);
 
 const router = new Router();
-const { DateTime } = require('luxon');
-const { spotSchema } = require('../validationSchemas');
+const { DateTime } = require(`luxon`);
+const { spotSchema } = require(`../validationSchemas`);
+const passport = require(`passport`);
 
-const Spot = require('../models/spot.model');
-const ErrorHandler = require('../utils/ErrorHandlers');
-const tryCatchWrapper = require('../utils/tryCatchWrapper');
+const Spot = require(`../models/spot.model`);
+const ErrorHandler = require(`../utils/ErrorHandlers`);
+const tryCatchWrapper = require(`../utils/tryCatchWrapper`);
+const { isLoggedIn } = require(`../middlewares/isLoggedIn`);
 
 // move into a middleware folder?
 const validateSpot = (req, res, next) => {
@@ -14,7 +17,7 @@ const validateSpot = (req, res, next) => {
     const { error } = spotSchema.validate(req.body);
     if (error) {
         // Joi error.details stores an array, so we need to map over it (in case there are more than 1) and then join the messages together on the comma
-        const errorMessage = error.details.map((el) => el.message).join(',');
+        const errorMessage = error.details.map((el) => el.message).join(`,`);
         throw new ErrorHandler(errorMessage, 400);
     } else {
         next();
@@ -22,40 +25,43 @@ const validateSpot = (req, res, next) => {
 };
 
 router.get(
-    '/',
+    `/`,
     tryCatchWrapper(async (req, res, next) => {
         const spots = await Spot.find({});
-        res.render('spots/index', { spots });
+        res.render(`spots/index`, { spots });
     })
 );
 
-router.get('/new', (req, res, next) => {
-    res.render('spots/new');
+router.get(`/new`, isLoggedIn, (req, res, next) => {
+    res.render(`spots/new`);
 });
 
 router.post(
-    '/',
+    `/`,
     validateSpot,
     tryCatchWrapper(async (req, res, next) => {
         const newSpot = new Spot(req.body.spot);
         await newSpot.save();
+        // flash a success message before redirecting to the new spot
+        req.flash(`success`, `You added a new cute spot, thanks!`);
         res.redirect(`spots/${newSpot._id}`);
     })
 );
 
 router.get(
-    '/:id/edit',
+    `/:id/edit`,
     tryCatchWrapper(async (req, res, next) => {
         const spot = await Spot.findById(req.params.id);
         if (!spot) {
-            throw new ErrorHandler('Spot not found', 404);
+            req.flash(`error`, `Sorry, spot not found.`);
+            res.redirect(`/spots`);
         }
-        res.render('spots/edit', { spot });
+        res.render(`spots/edit`, { spot });
     })
 );
 
 router.put(
-    '/:id/edit',
+    `/:id/edit`,
     validateSpot,
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;
@@ -67,50 +73,43 @@ router.put(
             { runValidators: true }
         );
         await updatedSpot.save();
+        req.flash(`success`, `You've made your spot even cuter!`);
         res.redirect(`/spots/${updatedSpot._id}`);
-    })
-);
-
-router.delete(
-    '/:id/delete',
-    tryCatchWrapper(async (req, res, next) => {
-        const { id } = req.params;
-        const deletedSpot = await Spot.findByIdAndDelete(id);
-        res.redirect('/spots');
     })
 );
 
 // remember to put other routes prefixed by / before this route or their will be a load error because what's after the route will be read by the client as an id
 router.get(
-    '/:id',
+    `/:id`,
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;
-        const spot = await Spot.findById(id).populate('reviews');
+        const spot = await Spot.findById(id).populate(`reviews`);
         if (!spot) {
-            throw new ErrorHandler(`That spot doesn't exist, you can add it though!`, 404);
+            req.flash(`error`, `Sorry, spot not found.`);
+            res.redirect(`/spots`);
         }
         const updatedAt = spot.updated_at;
-        const formattedUpdatedAt = DateTime.fromJSDate(updatedAt).toFormat('LLL dd yyyy');
-        res.render('spots/show', { spot, updatedAt: formattedUpdatedAt });
+        const formattedUpdatedAt = DateTime.fromJSDate(updatedAt).toFormat(`LLL dd yyyy`);
+        res.render(`spots/show`, { spot, updatedAt: formattedUpdatedAt });
     })
 );
 
-router.use((error, req, res, next) => {
-    console.log(`Mongoose error name : ${error.name}`);
-    if (error.name === 'ValidationError' || error.name === 'CastError') {
-        error.message = error.name;
-    }
-    next(error);
-});
+router.delete(
+    `/:id/delete`,
+    tryCatchWrapper(async (req, res, next) => {
+        const { id } = req.params;
+        const deletedSpot = await Spot.findByIdAndDelete(id);
+        req.flash(`success`, `${deletedSpot.name} was successfully deleted`);
+        res.redirect(`/spots`);
+    })
+);
 
-router.all('*', (req, res, next) => {
-    next(new ErrorHandler('Page Not Found', 404));
-});
-
-router.use((err, req, res, next) => {
-    const { statusCode = 500 } = err;
-    if (!err.message) err.message = 'this is not good (-_-｡)';
-    res.status(statusCode).render('error', { err });
-});
+// router.use((error, req, res, next) => {
+//     console.log(`Mongoose error name : ${error.name}`);
+//     if (error.name === `ValidationError` || error.name === `CastError`) {
+//         error.message = error.name;
+//     }
+//     next(error);
+// });
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require(`joi`);
 
 module.exports.spotSchema = Joi.object({
     spot: Joi.object({
@@ -11,7 +11,7 @@ module.exports.spotSchema = Joi.object({
 
 module.exports.reviewSchema = Joi.object({
     review: Joi.object({
-        rating: Joi.number().required().min(1).max(5),
+        rating: Joi.number().required().min(0).max(5),
         body: Joi.string().required(),
     }).required(),
 });
