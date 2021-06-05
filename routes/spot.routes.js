@@ -38,6 +38,7 @@ router.get(`/new`, isLoggedIn, (req, res, next) => {
 
 router.post(
     `/`,
+    isLoggedIn,
     validateSpot,
     tryCatchWrapper(async (req, res, next) => {
         const newSpot = new Spot(req.body.spot);
@@ -67,6 +68,7 @@ router.get(
 
 router.put(
     `/:id/edit`,
+    isLoggedIn,
     validateSpot,
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;

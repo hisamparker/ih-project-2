@@ -69,13 +69,6 @@ const configSession = {
 };
 app.use(session(configSession));
 app.use(flash());
-app.use((req, res, next) => {
-    // if flash.success has a value on the request object, use res.locals.success because of locals we don't have to pass the value to hbs templates because we always have access to success
-    res.locals.success = req.flash(`success`);
-    res.locals.error = req.flash(`error`);
-    // move on to next middleware
-    next();
-});
 // https://stackoverflow.com/questions/46644366/what-is-passport-initialize-nodejs-express
 app.use(passport.initialize());
 // stackoverflow.com/questions/22052258/what-does-passport-session-middleware-do/28994045#28994045
@@ -87,25 +80,24 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 // how to get user data out of session
 passport.deserializeUser(User.deserializeUser());
+app.use((req, res, next) => {
+    console.log(req.user);
+    res.locals.sessionUser = req.user;
+    // if flash.success has a value on the request object, use res.locals.success because of locals we don't have to pass the value to hbs templates because we always have access to success
+    res.locals.success = req.flash(`success`);
+    res.locals.error = req.flash(`error`);
+    // move on to next middleware
+    next();
+});
+
+app.use(`/spots/:id/reviews`, reviewRoutes);
+app.use(`/spots`, spotRoutes);
+app.use(`/`, userRoutes);
 
 app.get(`/`, (req, res, next) => {
     console.log(`(-_-｡)`);
     res.render(`home`);
 });
-
-// app.get(`/user`, async (req, res, next) => {
-//     const user = new User({
-//         email: `pickle@pickle.com`,
-//         username: `meeeee`,
-//     });
-//     // helper to register a new user with a given password and checks if username is unique takes in a user object and password
-//     const newUser = await User.register(user, `pickles`);
-//     res.send(newUser);
-// });
-
-app.use(`/spots/:id/reviews`, reviewRoutes);
-app.use(`/spots`, spotRoutes);
-app.use(`/`, userRoutes);
 
 app.all(`*`, (req, res, next) => {
     next(new ErrorHandler(`Page Not Found`, 404));
