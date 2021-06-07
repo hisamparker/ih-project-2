@@ -15,8 +15,14 @@ router.post(`/signup`, async (req, res, next) => {
         const newUser = new User({ username, email });
         // helper to register a new user with a given password and checks if username is unique takes in a user object and password
         const registeredUser = await User.register(newUser, password);
-        req.flash(`success`, `Hi ${newUser.username}, welcome to cute spot!`);
-        res.redirect(`/spots`);
+        // passport adds a login method to the request object, this method does not support async await so you need to use a callback and pass any errors into next()
+        req.login(registeredUser, (error) => {
+            if (error) {
+                return next(error);
+            }
+            req.flash(`success`, `Hi ${newUser.username}, welcome to cute spot!`);
+            res.redirect(`/spots`);
+        });
     } catch (e) {
         // the error message comes from passport local mongoose because they ensure that username is unique
         req.flash(`error`, e.message);
@@ -37,13 +43,14 @@ router.post(
     (req, res, next) => {
         const { username } = req.body;
         req.flash(`success`, `Hey, ${username}, welcome back!`);
-        res.redirect(`/spots`);
+        return res.redirect(`/spots`);
     }
 );
 
-router.get(`logout`, (req, res, next) => {
+router.get(`/logout`, (req, res) => {
     req.logout();
-    return res.redirect(`/`);
+    req.flash(`success`, `Have a good one!`);
+    res.redirect(`/`);
 });
 
 module.exports = router;

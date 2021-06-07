@@ -81,11 +81,12 @@ passport.serializeUser(User.serializeUser());
 // how to get user data out of session
 passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
-    console.log(req.user);
+    // passport adds a user object to the request object, res.locals makes content accessible to all templates, so now templates have access to session user
     res.locals.sessionUser = req.user;
     // if flash.success has a value on the request object, use res.locals.success because of locals we don't have to pass the value to hbs templates because we always have access to success
     res.locals.success = req.flash(`success`);
     res.locals.error = req.flash(`error`);
+    res.locals.info = req.flash(`info`);
     // move on to next middleware
     next();
 });
