@@ -28,6 +28,41 @@ router.post(
     })
 );
 
+// review route has both review id and spot id so info for the spot that the review is on is available... can pre-populate form with info from the review id, author will not change because only author can edit
+router.get(
+    `/:reviewId/edit`,
+    isLoggedIn,
+    isReviewAuthor,
+    tryCatchWrapper(async (req, res, next) => {
+        const { id, reviewId } = req.params;
+        const review = await Review.findById(reviewId);
+        if (!review) {
+            req.flash(`error`, `Sorry, review not found.`);
+            res.redirect(`/spots/${id}`);
+        }
+        res.render(`reviews/edit`, { review, spotId: id });
+    })
+);
+
+router.put(
+    `/:reviewId/edit`,
+    isLoggedIn,
+    isReviewAuthor,
+    validateReview,
+    tryCatchWrapper(async (req, res, next) => {
+        const { id, reviewId } = req.params;
+        const updatedReview = await Review.findByIdAndUpdate(
+            reviewId,
+            { ...req.body.review },
+            // make sure to validate with schema on update
+            { runValidators: true }
+        );
+        await updatedReview.save();
+        req.flash(`success`, `You've successfully updated your review!`);
+        return res.redirect(`/spots/${id}`);
+    })
+);
+
 router.delete(
     `/:reviewId`,
     isLoggedIn,

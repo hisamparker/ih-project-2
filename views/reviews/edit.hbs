@@ -1,0 +1,46 @@
+<div class="row">
+	<h1 class="text-center">Edit Review</h1>
+	<div class="col-6 offset-3">
+		<form
+			action="/spots/{{spotId}}/reviews/{{review._id}}/edit?_method=PUT"
+			method="POST"
+			novalidate
+			class="validated_form"
+		>
+			<section class="mb-3">
+				<label for="rating" class="form-label">Rating</label>
+				<input
+					aria-label="range input for rating"
+					type="range"
+					min="0"
+					max="5"
+					step="1"
+					class="form-range"
+					id="rating"
+					name="review[rating]"
+					value="{{review.rating}}"
+				/>
+			</section>
+			<section class="mb-3">
+				<label class="form-label" for="body">Notes</label>
+				<textarea
+					class="form-control"
+					name="review[body]"
+					id="body"
+					cols="30"
+					rows="2"
+					required
+				>{{review.body}}</textarea>
+				<div class="valid-feedback">
+					Looks good!
+				</div>
+				<div class="invalid-feedback">
+					Please add a review.
+				</div>
+			</section>
+			<div>
+				<button class="btn btn-info">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
