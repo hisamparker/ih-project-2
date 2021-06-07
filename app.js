@@ -4,8 +4,7 @@ require(`dotenv`).config();
 const express = require(`express`);
 const mongoose = require(`mongoose`);
 const hbs = require(`hbs`);
-// http://doginthehat.com.au/2012/02/comparison-block-helper-for-handlebars-templates/
-hbs.registerHelper(`equal`, require(`handlebars-helper-equal`));
+// register helper to compare values in hbs templates
 hbs.registerHelper(`ifEquals`, function (a, b, opts) {
     if (a.toString() === b.toString()) {
         return opts.fn(this);

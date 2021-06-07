@@ -96,7 +96,6 @@ router.get(
             req.flash(`error`, `Sorry, spot not found.`);
             return res.redirect(`/spots`);
         }
-        console.log(spot.author._id, req.user._id);
         const updatedAt = spot.updated_at;
         const formattedUpdatedAt = DateTime.fromJSDate(updatedAt).toFormat(`LLL dd yyyy`);
         res.render(`spots/show`, { spot, updatedAt: formattedUpdatedAt });
