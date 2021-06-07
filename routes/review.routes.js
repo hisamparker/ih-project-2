@@ -9,6 +9,7 @@ const Review = require(`../models/review.model`);
 const tryCatchWrapper = require(`../utils/tryCatchWrapper`);
 const { isLoggedIn } = require(`../middleware/isLoggedIn`);
 const { validateReview } = require(`../middleware/validateReview`);
+const { isReviewAuthor } = require(`../middleware/isReviewAuthor`);
 
 router.post(
     `/`,
@@ -30,6 +31,7 @@ router.post(
 router.delete(
     `/:reviewId`,
     isLoggedIn,
+    isReviewAuthor,
     tryCatchWrapper(async (req, res, next) => {
         const { id, reviewId } = req.params;
         // The $pull operator removes from an existing array all instances of a value or values that match a specified condition.

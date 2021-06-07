@@ -75,16 +75,16 @@
                 </section>
             </article>
             {{#if ../sessionUser}}
-            {{log author._id ../sessionUser._id}}
+            {{!-- {{log author._id ../sessionUser._id}}
             {{#ifEquals author._id ../sessionUser._id}}
-            {{log ./author._id .../sessionUser._id}}
+            {{log ./author._id .../sessionUser._id}} --}}
             <div class='card-footer text-muted'>
                 <form class='d-inline ml-3' action='/spots/{{ ../spot._id }}/reviews/{{ this._id }}?_method=DELETE' method='POST'>
                     <button class='btn btn-danger'>Delete Review</button>
                 </form>
             </div>
-            {{else}}
-            {{/ifEquals}}
+            {{!-- {{else}}
+            {{/ifEquals}} --}}
             {{/if}}
             {{/each}}
         </section>
