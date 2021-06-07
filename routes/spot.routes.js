@@ -80,7 +80,15 @@ router.get(
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;
         // populate reviews to get all info on reviews, populate author to get details of spot author, can now access spot.author.username
-        const spot = await Spot.findById(id).populate(`reviews`).populate(`author`);
+        const spot = await Spot.findById(id)
+            .populate({
+                path: `reviews`,
+                populate: {
+                    path: `author`,
+                },
+            })
+            .populate(`author`);
+        console.log(spot.reviews);
         if (!spot) {
             req.flash(`error`, `Sorry, spot not found.`);
             return res.redirect(`/spots`);

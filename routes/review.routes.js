@@ -12,11 +12,13 @@ const { validateReview } = require(`../middleware/validateReview`);
 
 router.post(
     `/`,
+    isLoggedIn,
     validateReview,
     tryCatchWrapper(async (req, res, next) => {
         // console.log(`body: ${JSON.stringify(req.body)}, params : ${JSON.stringify(req.params)}`);
         const reviewedSpot = await Spot.findById(req.params.id);
         const review = new Review(req.body.review);
+        review.author = req.user._id;
         reviewedSpot.reviews.push(review);
         await review.save();
         await reviewedSpot.save();

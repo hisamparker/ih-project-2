@@ -46,6 +46,7 @@ router.post(
         const desiredPath = req.session.originalUrl || `/spots`;
         // don't want to continue to store originalUrl on session because it could get weird later (after redirecting, it'll no longer be relevant yay sitepoints tutorial!)
         // www.w3schools.com/howto/howto_js_remove_property_object.asp
+        console.log(`from post route : req.sess`, req.session.originalUrl, `desired`, desiredPath);
         return res.redirect(desiredPath);
     }
 );
