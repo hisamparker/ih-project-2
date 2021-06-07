@@ -43,14 +43,17 @@ router.post(
     (req, res, next) => {
         const { username } = req.body;
         req.flash(`success`, `Hey, ${username}, welcome back!`);
-        return res.redirect(`/spots`);
+        // instead of redirecting user to list page, redirect them to where they originally wanted to go.
+        // their desired path is stored on the session object now (look at isLoggedIn middleware to see how) so if it's defined, desiredPath = their originalUrl, otherwise, it's equal to the list route
+        const desiredPath = req.session.originalUrl || `/spots`;
+        return res.redirect(desiredPath);
     }
 );
 
 router.get(`/logout`, (req, res) => {
     req.logout();
     req.flash(`success`, `Have a good one!`);
-    res.redirect(`/`);
+    return res.redirect(`/`);
 });
 
 module.exports = router;
