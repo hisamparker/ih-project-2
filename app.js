@@ -4,6 +4,14 @@ require(`dotenv`).config();
 const express = require(`express`);
 const mongoose = require(`mongoose`);
 const hbs = require(`hbs`);
+// http://doginthehat.com.au/2012/02/comparison-block-helper-for-handlebars-templates/
+hbs.registerHelper(`equal`, require(`handlebars-helper-equal`));
+hbs.registerHelper(`ifEquals`, function (a, b, opts) {
+    if (a.toString() === b.toString()) {
+        return opts.fn(this);
+    }
+    return opts.inverse(this);
+});
 const path = require(`path`);
 const methodOverride = require(`method-override`);
 const flash = require(`connect-flash`);

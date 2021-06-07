@@ -9,7 +9,9 @@ const spotSchema = new Schema(
             // required: [true, `Please name your spot`],
         },
         author: {
-            type: String,
+            // not an array like usual because their is only ever 1 author
+            type: Schema.Types.ObjectId,
+            ref: `User`,
         },
         image: {
             type: String,

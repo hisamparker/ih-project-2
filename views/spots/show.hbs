@@ -8,7 +8,11 @@
             </div>
             <ul class='list-group list-group-flush'>
                 <li class='list-group-item text-muted'>{{ spot.location }}</li>
+                <li class='list-group-item '>Thanks to {{ spot.author.username }} for sharing ♡</li>
             </ul>
+            {{#if sessionUser}}
+            {{log 'auth' spot.author._id 'session' sessionUser._id}}
+            {{#ifEquals spot.author._id sessionUser._id }}
             <div class='card-body'>
                 <a href='/spots/{{ spot._id }}/edit' class='card-link btn btn-info '>Edit</a>
                 <a href='/spots' class='card-link btn btn-info '>All Spots</a>
@@ -16,6 +20,12 @@
                     <button class='btn btn-danger'>Delete</button>
                 </form>
             </div>
+            {{else}}
+            <div class='card-footer text-muted'>
+                hi
+            </div>
+            {{/ifEquals}}
+            {{/if}}
             <div class='card-footer text-muted'>
                 Last update : {{ updatedAt }}
             </div>

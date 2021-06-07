@@ -90,11 +90,13 @@ router.get(
     `/:id`,
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;
-        const spot = await Spot.findById(id).populate(`reviews`);
+        // populate reviews to get all info on reviews, populate author to get details of spot author, can now access spot.author.username
+        const spot = await Spot.findById(id).populate(`reviews`).populate(`author`);
         if (!spot) {
             req.flash(`error`, `Sorry, spot not found.`);
             return res.redirect(`/spots`);
         }
+        console.log(spot.author._id, req.user._id);
         const updatedAt = spot.updated_at;
         const formattedUpdatedAt = DateTime.fromJSDate(updatedAt).toFormat(`LLL dd yyyy`);
         res.render(`spots/show`, { spot, updatedAt: formattedUpdatedAt });

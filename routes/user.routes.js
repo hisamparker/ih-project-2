@@ -46,6 +46,9 @@ router.post(
         // instead of redirecting user to list page, redirect them to where they originally wanted to go.
         // their desired path is stored on the session object now (look at isLoggedIn middleware to see how) so if it's defined, desiredPath = their originalUrl, otherwise, it's equal to the list route
         const desiredPath = req.session.originalUrl || `/spots`;
+        // don't want to continue to store originalUrl on session because it could get weird later (after redirecting, it'll no longer be relevant yay sitepoints tutorial!)
+        // www.w3schools.com/howto/howto_js_remove_property_object.asp
+        delete req.session.originalUrl;
         return res.redirect(desiredPath);
     }
 );
