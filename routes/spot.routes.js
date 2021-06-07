@@ -3,27 +3,13 @@ const { Router } = require(`express`);
 
 const router = new Router();
 const { DateTime } = require(`luxon`);
-const { spotSchema } = require(`../validationSchemas`);
 // const passport = require(`passport`);
 
 const Spot = require(`../models/spot.model`);
-const ErrorHandler = require(`../utils/ErrorHandlers`);
 const tryCatchWrapper = require(`../utils/tryCatchWrapper`);
 const { isLoggedIn } = require(`../middleware/isLoggedIn`);
 const { isAuthor } = require(`../middleware/isAuthor`);
-
-// move into a middleware folder?
-const validateSpot = (req, res, next) => {
-    // Destructure the result to just get the error
-    const { error } = spotSchema.validate(req.body);
-    if (error) {
-        // Joi error.details stores an array, so we need to map over it (in case there are more than 1) and then join the messages together on the comma
-        const errorMessage = error.details.map((el) => el.message).join(`,`);
-        throw new ErrorHandler(errorMessage, 400);
-    } else {
-        next();
-    }
-};
+const { validateSpot } = require(`../middleware/validateSpot`);
 
 router.get(
     `/`,
@@ -43,6 +29,7 @@ router.post(
     validateSpot,
     tryCatchWrapper(async (req, res, next) => {
         const newSpot = new Spot(req.body.spot);
+        newSpot.author = req.user._id;
         const savedSpot = await newSpot.save();
         if (!savedSpot) {
             req.flash(`error`, `Spot not added, please try again.`);
@@ -50,7 +37,7 @@ router.post(
         }
         // flash a success message before redirecting to the new spot
         req.flash(`success`, `You added a new cute spot, thanks!`);
-        res.redirect(`spots/${newSpot._id}`);
+        res.redirect(`/spots/${savedSpot._id}`);
     })
 );
 
@@ -107,6 +94,7 @@ router.get(
 router.delete(
     `/:id/delete`,
     isLoggedIn,
+    isAuthor,
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;
         const deletedSpot = await Spot.findByIdAndDelete(id);

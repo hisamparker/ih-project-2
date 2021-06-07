@@ -10,6 +10,8 @@
                 <li class='list-group-item text-muted'>{{ spot.location }}</li>
                 <li class='list-group-item '>Thanks to {{ spot.author.username }} for sharing ♡</li>
             </ul>
+
+            {{log 'auth' spot.author._id 'sessuser' sessionUser._id}}
             {{#if sessionUser}}
             {{#ifEquals spot.author._id sessionUser._id }}
             <div class='card-body'>
