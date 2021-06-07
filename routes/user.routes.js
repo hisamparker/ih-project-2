@@ -1,9 +1,7 @@
 const { Router } = require(`express`);
 const router = new Router({ mergeParams: true });
 const passport = require(`passport`);
-
 const User = require(`../models/user.model`);
-const isLoggedIn = require(`../middleware/isLoggedIn`);
 
 router.get(`/signup`, (req, res, next) => {
     res.render(`users/signup`);
