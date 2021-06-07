@@ -10,6 +10,7 @@ const Spot = require(`../models/spot.model`);
 const ErrorHandler = require(`../utils/ErrorHandlers`);
 const tryCatchWrapper = require(`../utils/tryCatchWrapper`);
 const { isLoggedIn } = require(`../middleware/isLoggedIn`);
+const { isAuthor } = require(`../middleware/isAuthor`);
 
 // move into a middleware folder?
 const validateSpot = (req, res, next) => {
@@ -56,6 +57,7 @@ router.post(
 router.get(
     `/:id/edit`,
     isLoggedIn,
+    isAuthor,
     tryCatchWrapper(async (req, res, next) => {
         const spot = await Spot.findById(req.params.id);
         if (!spot) {
@@ -69,10 +71,10 @@ router.get(
 router.put(
     `/:id/edit`,
     isLoggedIn,
+    isAuthor,
     validateSpot,
     tryCatchWrapper(async (req, res, next) => {
         const { id } = req.params;
-        console.log(req.body);
         const updatedSpot = await Spot.findByIdAndUpdate(
             id,
             { ...req.body.spot },
