@@ -15,10 +15,9 @@
             {{#if sessionUser}}
             {{#ifEquals spot.author._id sessionUser._id }}
             <div class='card-body'>
-                <a href='/spots/{{ spot._id }}/edit' class='card-link btn btn-info '>Edit</a>
-                <a href='/spots' class='card-link btn btn-info '>All Spots</a>
+                <a href='/spots/{{ spot._id }}/edit' class='card-link'>Edit</a>
                 <form class='d-inline ml-3' action='{{ spot._id }}/delete?_method=DELETE' method='POST'>
-                    <button class='btn btn-danger'>Delete</button>
+                    <button id="delete" class='card-link'>Delete</button>
                 </form>
             </div>
             {{else}}
@@ -28,6 +27,7 @@
                 Last update : {{ updatedAt }}
             </div>
         </div>
+        {{!-- hide from author --}}
         <article class='card mb-3'>
             <div class='card-body'>
                 <h4 class='card-title display-6'>
@@ -79,9 +79,9 @@
             {{#ifEquals author._id ../sessionUser._id}}
             {{log ./author._id .../sessionUser._id}}
             <div class='card-footer'>
-                <a href='/spots/{{ ../spot._id }}/reviews/{{this._id}}/edit' class='card-link btn btn-info '>Edit</a>
-                <form class='d-inline ml-3' action='/spots/{{ ../spot._id }}/reviews/{{ this._id }}?_method=DELETE' method='POST'>
-                    <button class='btn btn-danger'>Delete Review</button>
+                <a href='/spots/{{ ../spot._id }}/reviews/{{this._id}}/edit' class='card-link'>Edit</a>
+                <form class='d-inline ml-3' action='/spots/{{ ../spot._id }}/reviews/{{ this._id }}?_method=DELETE' method='POST'>   
+                    <button id="delete" class='card-link'>Delete Review</button>
                 </form>
             </div>
             {{else}}

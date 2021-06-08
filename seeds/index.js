@@ -32,6 +32,7 @@ const seedDB = async () => {
             location: `${cities[rand1000].city}, ${cities[rand1000].state}`,
             author: `60bb2188022c9e39f22d5a19`,
             name: `${selection(descriptors)} ${selection(places)}`,
+            // https://dev.to/desi/using-the-unsplash-api-to-display-random-images-15co
             image: `https://source.unsplash.com/collection/4794086`,
             description: `I am baby 8-bit synth direct trade bespoke PBR&B. Vinyl polaroid actually art party normcore coloring book mumblecore butcher meggings gastropub chia you probably not heard of them gentrify. Truffaut church-key quinoa gluten-free, actually bushwick semiotics heirloom twee four dollar toast brooklyn.`,
         });
