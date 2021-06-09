@@ -9,6 +9,7 @@ const tryCatchWrapper = require(`../utils/tryCatchWrapper`);
 const { isLoggedIn } = require(`../middleware/isLoggedIn`);
 const { isAuthor } = require(`../middleware/isAuthor`);
 const { validateSpot } = require(`../middleware/validateSpot`);
+const fileUpload = require(`../configs/cloudinary.config`);
 
 // pass spots.index into get route and I can access everything from the spots controller for index! This is amazing!
 router.get(`/`, tryCatchWrapper(spots.index));
@@ -17,11 +18,11 @@ router.get(`/`, tryCatchWrapper(spots.index));
 router.get(`/new`, isLoggedIn, spots.renderNewSpotForm);
 
 // should I move my async wrapper into the controller? Ask Michael
-router.post(`/`, isLoggedIn, validateSpot, tryCatchWrapper(spots.createNewSpot));
+router.post(`/`, isLoggedIn, fileUpload.array(`image`), validateSpot, tryCatchWrapper(spots.createNewSpot));
 
 router.get(`/:id/edit`, isLoggedIn, isAuthor, tryCatchWrapper(spots.renderEditSpotForm));
 
-router.put(`/:id/edit`, isLoggedIn, isAuthor, validateSpot, tryCatchWrapper(spots.editSpot));
+router.put(`/:id/edit`, isLoggedIn, isAuthor, fileUpload.array(`image`), validateSpot, tryCatchWrapper(spots.editSpot));
 
 // remember to put other routes prefixed by / before this route or their will be a load error because what's after the route will be read by the client as an id
 router.get(`/:id`, tryCatchWrapper(spots.renderSelectedSpot));

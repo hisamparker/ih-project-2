@@ -45,6 +45,13 @@ module.exports.editSpot = async (req, res, next) => {
         // make sure to validate with schema on update
         { runValidators: true }
     );
+    // create a new array from any images added during edit
+    const newImages = req.files.map((file) => ({
+        url: file.path,
+        filename: file.filename,
+    }));
+    // spread the new images and push them onto updatedSpot.images
+    updatedSpot.images.push(...newImages);
     await updatedSpot.save();
     req.flash(`success`, `You've made your spot even cuter!`);
     return res.redirect(`/spots/${updatedSpot._id}`);

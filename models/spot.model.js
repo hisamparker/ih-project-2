@@ -13,11 +13,12 @@ const spotSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: `User`,
         },
-        image: {
-            type: String,
-            default: `https://unsplash.com/photos/mH8g-fDYVLU`,
-            set: (v) => (v === `` ? `/images/puffgirls.png` : v),
-        },
+        images: [
+            {
+                url: String,
+                filename: String,
+            },
+        ],
         description: {
             type: String,
             // required: [true, `Please include a description`],

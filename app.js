@@ -1,6 +1,8 @@
-require(`dotenv`).config();
-
+if (process.env.NODE_ENV !== `production`) {
+    require(`dotenv`).config();
+}
 // dependencies
+
 const express = require(`express`);
 const mongoose = require(`mongoose`);
 const hbs = require(`hbs`);
@@ -11,7 +13,33 @@ hbs.registerHelper(`ifEquals`, function (a, b, opts) {
     }
     return opts.inverse(this);
 });
+hbs.registerHelper(`iff`, function (a, operator, b, opts) {
+    let bool = false;
+    a.toString();
+    b.toString();
+    switch (operator) {
+        case `===`:
+            bool = a === b;
+            break;
+        case `>`:
+            bool = a > b;
+            break;
+        case `<`:
+            bool = a < b;
+            break;
+        default:
+            bool = a === b;
+    }
+
+    if (bool) {
+        return opts.fn(this);
+    }
+    return opts.inverse(this);
+});
+
 const path = require(`path`);
+// with method override you can make your app RESTful by having descriptive http verbs like PUT PATCH and DELETE
+// https://lo-victoria.com/a-deep-look-into-restful-apis
 const methodOverride = require(`method-override`);
 const flash = require(`connect-flash`);
 const session = require(`express-session`);
