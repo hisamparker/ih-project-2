@@ -125,6 +125,7 @@
                         <p class='card-text'>Review : {{ body }}</p>
                     </section>
                 </article>
+                {{log author._id ../sessionUser._id}}
                 {{#if ../sessionUser}}
                 {{log author._id ../sessionUser._id}}
                 {{#ifEquals author._id ../sessionUser._id}}
