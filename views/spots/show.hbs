@@ -44,6 +44,8 @@
 
             {{log 'auth' spot.author._id 'sessuser' sessionUser._id}}
             {{#if sessionUser}}
+             <p class='card-text'>auth{{ spot.author._id }}</p>
+                <p class='card-text'>session{{ sessionUser._id }}</p>
             {{#ifEquals spot.author._id sessionUser._id }}
             <div class='card-body'>
                 <a href='/spots/{{ spot._id }}/edit' class='card-link'>Edit</a>
