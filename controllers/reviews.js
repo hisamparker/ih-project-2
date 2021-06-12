@@ -32,6 +32,7 @@ module.exports.editReview = async (req, res, next) => {
         { runValidators: true }
     );
     await updatedReview.save();
+    console.log(`review`, updatedReview);
     req.flash(`success`, `You've successfully updated your review!`);
     return res.redirect(`/spots/${id}`);
 };
