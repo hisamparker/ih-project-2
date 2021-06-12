@@ -2,6 +2,7 @@ const { spotSchema } = require(`../validationSchemas`);
 const ErrorHandler = require(`../utils/ErrorHandlers`);
 
 module.exports.validateSpot = (req, res, next) => {
+    console.log(req.body);
     // Destructure the result to just get the error
     const { error } = spotSchema.validate(req.body);
     if (error) {

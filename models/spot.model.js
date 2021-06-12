@@ -8,6 +8,24 @@ const spotSchema = new Schema(
             type: String,
             // required: [true, `Please name your spot`],
         },
+        hasChangeTable: {
+            type: String,
+        },
+        hasPublicToilet: {
+            type: String,
+        },
+        hasToys: {
+            type: String,
+        },
+        hasKidsMenu: {
+            type: String,
+        },
+        hasBabyccinos: {
+            type: String,
+        },
+        hasHighChairs: {
+            type: String,
+        },
         author: {
             // not an array like usual because their is only ever 1 author
             type: Schema.Types.ObjectId,
@@ -22,6 +40,19 @@ const spotSchema = new Schema(
         description: {
             type: String,
             // required: [true, `Please include a description`],
+        },
+        // https://mongoosejs.com/docs/geojson.html this matches geoJSON formatting exactly, there's more in the mongoose docs
+        geometry: {
+            type: {
+                type: String,
+                // location.type must be Point!
+                enum: [`Point`],
+                require: true,
+            },
+            coordinates: {
+                type: [Number],
+                required: true,
+            },
         },
         location: {
             type: String,
