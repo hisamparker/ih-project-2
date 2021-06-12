@@ -254,6 +254,21 @@ const flash = require(`connect-flash`);
 const session = require(`express-session`);
 const passport = require(`passport`);
 const LocalStrategy = require(`passport-local`);
+const sanitizeMongo = require(`express-mongo-sanitize`);
+const MongoStore = require(`connect-mongo`)(session);
+// change on deploy
+const dbUrl = process.env.MONGO_ATLAS_URL || `mongodb://localhost:27017/${process.env.DB_NAME}`;
+const store = new MongoStore({
+    url: dbUrl,
+    secret: process.env.MONGO_STORE_SECRET,
+    // so you don't resave session on db every time user refreshes, instead limit a period of time - if nothing has changed, only update every 24 hours
+    // in seconds not milliseconds like session, pffft
+    touchAfter: 24 * 60 * 60,
+});
+
+store.on(`error`, function (e) {
+    console.log(`session store error`, e);
+});
 
 // create validation schemas!
 const Joi = require(`joi`);
@@ -284,8 +299,11 @@ app.use(methodOverride(`_method`));
 // Static files are typically files such as scripts, CSS files, images, etc... that aren't server-generated, but must be sent to the browser when requested.
 // Typically this is not done from local server as that's super slow
 app.use(express.static(path.join(__dirname, `public`)));
+// use mongo sanitize to remove characters (like $) from the query string that are used for mongo database injection https://www.netsparker.com/blog/web-security/what-is-nosql-injection/
+app.use(sanitizeMongo());
 
 const configSession = {
+    store,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,

@@ -1,6 +1,7 @@
 const mongoose = require(`mongoose`);
+const dbUrl = process.env.MONGO_ATLAS_URL || `mongodb://localhost:27017/${process.env.DB_NAME}`;
 
-mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`, {
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
