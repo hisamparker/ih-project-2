@@ -202,10 +202,26 @@ hbs.registerHelper(`ifEquals`, function (a, b, opts) {
     }
     return opts.inverse(this);
 });
+hbs.registerHelper(`ifNotEqual`, function (a, b, opts) {
+    if (a) {
+        a.toString();
+    }
+    if (b) {
+        b.toString();
+    }
+    if (a !== b) {
+        return opts.fn(this);
+    }
+    return opts.inverse(this);
+});
 hbs.registerHelper(`iff`, function (a, operator, b, opts) {
     let bool = false;
-    a.toString();
-    b.toString();
+    if (a) {
+        a.toString();
+    }
+    if (b) {
+        b.toString();
+    }
     switch (operator) {
         case `===`:
             bool = a === b;
