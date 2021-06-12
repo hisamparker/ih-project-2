@@ -1,4 +1,4 @@
-const { spotSchema } = require(`../validationSchemas`);
+const { spotSchema } = require(`../helpers/validationSchemas`);
 const ErrorHandler = require(`../utils/ErrorHandlers`);
 
 module.exports.validateSpot = (req, res, next) => {

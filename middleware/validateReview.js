@@ -1,4 +1,4 @@
-const { reviewSchema } = require(`../validationSchemas`);
+const { reviewSchema } = require(`../helpers/validationSchemas`);
 const ErrorHandler = require(`../utils/ErrorHandlers`);
 
 module.exports.validateReview = (req, res, next) => {

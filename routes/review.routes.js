@@ -2,7 +2,7 @@ const { Router } = require(`express`);
 // Routes all get separate params, but I want to get spot._id from the spot route params, so I set mergeParams to true
 const router = new Router({ mergeParams: true });
 
-const { reviewSchema } = require(`../validationSchemas`);
+const { reviewSchema } = require(`../helpers/validationSchemas`);
 const Review = require(`../models/review.model`);
 const reviews = require(`../controllers/reviews`);
 const Spot = require(`../models/spot.model`);
