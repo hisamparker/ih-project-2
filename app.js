@@ -242,10 +242,12 @@ hbs.registerPartials(path.join(__dirname, `views/partials`));
 // register helper to compare values in hbs templates
 hbs.registerHelper(`ifEquals`, function (a, b, opts) {
     if (a) {
-        a.toString();
+        a = `${a}`;
+        console.log(`a`, a, typeof a);
     }
     if (b) {
-        b.toString();
+        b = `${b}`;
+        console.log(`b`, b, typeof b);
     }
     if (a === b) {
         return opts.fn(this);
@@ -254,23 +256,32 @@ hbs.registerHelper(`ifEquals`, function (a, b, opts) {
 });
 hbs.registerHelper(`ifNotEqual`, function (a, b, opts) {
     if (a) {
-        a.toString();
+        a = `${a}`;
+        console.log(`a`, a, typeof a);
     }
     if (b) {
-        b.toString();
+        b = `${b}`;
+        console.log(`b`, b, typeof b);
     }
     if (a !== b) {
         return opts.fn(this);
     }
     return opts.inverse(this);
 });
+
+hbs.registerHelper(`inc`, function (value, options) {
+    return parseInt(value) + 1;
+});
+
 hbs.registerHelper(`iff`, function (a, operator, b, opts) {
     let bool = false;
     if (a) {
-        a.toString();
+        a = `${a}`;
+        console.log(`a`, a, typeof a);
     }
     if (b) {
-        b.toString();
+        b = `${b}`;
+        console.log(`b`, b, typeof b);
     }
     switch (operator) {
         case `===`:
@@ -290,10 +301,6 @@ hbs.registerHelper(`iff`, function (a, operator, b, opts) {
         return opts.fn(this);
     }
     return opts.inverse(this);
-});
-
-hbs.registerHelper(`inc`, function (value, options) {
-    return parseInt(value) + 1;
 });
 
 // parse the data coming in
