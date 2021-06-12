@@ -14,7 +14,7 @@
 					id="no-rate"
 					class="input-no-rate"
 					name="review[rating]"
-					value="{{review.rating}}"
+					value="0"
 					checked
 					aria-label="No review."
 				/>
@@ -29,20 +29,6 @@
 				<input type="radio" id="first-rate5" name="review[rating]" value="5" />
 				<label for="first-rate5" title="Amazing">5 stars</label>
 			</fieldset>
-			{{!-- <section class="mb-3">
-				<label for="rating" class="form-label">Rating</label>
-				<input
-					aria-label="range input for rating"
-					type="range"
-					min="0"
-					max="5"
-					step="1"
-					class="form-range"
-					id="rating"
-					name="review[rating]"
-					value="{{review.rating}}"
-				/>
-			</section> --}}
 			<section class="mb-3">
 				<label class="form-label" for="body">Notes</label>
 				<textarea
