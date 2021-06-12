@@ -24,7 +24,7 @@ const selection = (array) => array[Math.floor(Math.random() * array.length)];
 // seed db with random cafes
 const seedDB = async () => {
     // delete db before seeding
-    await Spot.deleteMany({});
+    // await Spot.deleteMany({});
     // loop over cities array
     for (let i = 0; i < 50; i++) {
         const rand1000 = Math.floor(Math.random() * 1000);
