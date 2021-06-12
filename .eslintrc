@@ -1,0 +1,18 @@
+//can also put these in package.json?
+{
+	"extends": ["wesbos"],
+	"rules": {
+		"no-console": 0,
+		"quotes": ["error", "backtick"],
+		"prettier/prettier": [
+			"error",
+			{
+				"trailingComma": "es5",
+				"quotes": "backtick",
+				"printWidth": 120,
+				"tabWidth": 4,
+				"singleQuote": false
+			}
+		]
+	}
+}
