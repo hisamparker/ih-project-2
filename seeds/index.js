@@ -50,7 +50,17 @@ const seedDB = async () => {
                     filename: `${randomImagesFileName2}`,
                 },
             ],
+            geometry: {
+                type: `Point`,
+                coordinates: [139.88583, 35.634241],
+            },
             description: `I am baby 8-bit synth direct trade bespoke PBR&B. Vinyl polaroid actually art party normcore coloring book mumblecore butcher meggings gastropub chia you probably not heard of them gentrify. Truffaut church-key quinoa gluten-free, actually bushwick semiotics heirloom twee four dollar toast brooklyn.`,
+            hasChangeTable: `Yes`,
+            hasPublicToilet: `Yes`,
+            hasHighChairs: `Yes`,
+            hasKidsMenu: `No`,
+            hasBabyccinos: `Yes`,
+            hasToys: `No`,
         });
         await spot.save();
     }
