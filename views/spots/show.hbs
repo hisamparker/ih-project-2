@@ -44,9 +44,9 @@
 
             {{log 'auth' spot.author._id 'sessuser' sessionUser._id}}
             {{#if sessionUser}}
+            {{#ifEquals spot.author._id sessionUser._id }}
              <p class='card-text'>auth{{ spot.author._id }}</p>
                 <p class='card-text'>session{{ sessionUser._id }}</p>
-            {{#ifEquals spot.author._id sessionUser._id }}
             <div class='card-body'>
                 <a href='/spots/{{ spot._id }}/edit' class='card-link'>Edit</a>
                 <form class='d-inline ml-3' action='{{ spot._id }}/delete?_method=DELETE' method='POST'>
