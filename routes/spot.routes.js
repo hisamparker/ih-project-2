@@ -15,9 +15,9 @@ const fileUpload = require(`../configs/cloudinary.config`);
 router.get(`/`, tryCatchWrapper(spots.index));
 
 // try to name controller methods in a really clear way so that I know exactly what they're doing... These are much longer than other people seem to make them, but I think that's ok, ask Michael
+
 router.get(`/new`, isLoggedIn, spots.renderNewSpotForm);
 
-// should I move my async wrapper into the controller? Ask Michael
 router.post(`/`, isLoggedIn, fileUpload.array(`image`), validateSpot, tryCatchWrapper(spots.createNewSpot));
 
 router.get(`/:id/edit`, isLoggedIn, isAuthor, tryCatchWrapper(spots.renderEditSpotForm));

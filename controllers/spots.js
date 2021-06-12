@@ -2,6 +2,10 @@
 const Spot = require(`../models/spot.model`);
 const { DateTime } = require(`luxon`);
 const { urlencoded } = require(`express`);
+// To create a service client, import the service's factory function from '@mapbox/mapbox-sdk/services/{service}'
+// provide it with your access token.
+const geocodingClient = require(`@mapbox/mapbox-sdk/services/geocoding`);
+const geocodingService = geocodingClient({ accessToken: process.env.MAPBOX_TOKEN });
 
 module.exports.index = async (req, res, next) => {
     const spots = await Spot.find({});
@@ -13,10 +17,33 @@ module.exports.renderNewSpotForm = (req, res, next) => {
 };
 
 module.exports.createNewSpot = async (req, res, next) => {
-    // map any uploaded files into an object
+    // get coordinates from mapbox api
+    console.log(`pre body`, req.body);
+    const geocodingResponse = await geocodingService
+        .forwardGeocode({
+            query: req.body.spot.location,
+            limit: 1,
+        })
+        .send();
+    // geoJSON https://geojson.org/
+    // {
+    //     "type": "Feature",
+    //     "geometry": {
+    //         "type": "Point",
+    //         "coordinates": [125.6, 10.1]
+    //     },
+    //     "properties": {
+    //         "name": "Dinagat Islands"
+    //     }
+    // }
+    // this returns geoJSON
+    const spotGeometry = geocodingResponse.body.features[0].geometry;
     const newSpot = new Spot(req.body.spot);
+    newSpot.geometry = spotGeometry;
+    // map any uploaded files into an object
     newSpot.images = req.files.map((file) => ({ url: file.path, filename: file.filename }));
     newSpot.author = req.user._id;
+    console.log(`pre save bod`, newSpot);
     const savedSpot = await newSpot.save();
     console.log(savedSpot);
     if (!savedSpot) {
