@@ -25,6 +25,82 @@
 					Please name your spot (-_-｡)
 				</div>
 			</div>
+			<section class="card-body">
+				<h4>How kid friendly is this spot?</h4>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="hasChangeTable" {{#ifEquals spot.hasChangeTable 'Yes'}} checked {{/ifEquals}}/>
+					<input
+						class="form-check-input"
+						type="hidden"
+						id="hiddenHasChangeTable"
+						name="spot[hasChangeTable]"
+						value="{{spot.hasChangeTable}}"
+					/>
+					<label class="form-check-label" for="hasChangeTable">Change Table</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						id="hasPublicToilet"
+						{{#ifEquals spot.hasPublicToilet 'Yes'}} checked {{/ifEquals}}
+					/>
+					<input
+						class="form-check-input"
+						type="hidden"
+						id="hiddenHasPublicToilet"
+						name="spot[hasPublicToilet]"
+						value="{{spot.hasPublicToilet}}"
+					/>
+					<label class="form-check-label" for="hasPublicToilet">Public Toilet</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="hasHighChairs" {{#ifEquals spot.hasHighChairs 'Yes'}} checked {{/ifEquals}}/>
+					<input
+						class="form-check-input"
+						type="hidden"
+						id="hiddenHasHighChairs"
+						name="spot[hasHighChairs]"
+						value="{{spot.hasHighChairs}}"
+					/>
+					<label class="form-check-label" for="hasHighChairs">High Chairs</label>
+				</div>
+			</section>
+			<section class="card-body">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="hasKidsMenu" {{#ifEquals spot.hasKidsMenu 'Yes'}} checked {{/ifEquals}}/>
+					<input
+						class="form-check-input"
+						type="hidden"
+						id="hiddenHasKidsMenu"
+						name="spot[hasKidsMenu]"
+						value="{{spot.hasKidsMenu}}"
+					/>
+					<label class="form-check-label" for="hasKidsMenu">Kids Menu</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="hasBabyccinos" {{#ifEquals spot.hasBabyccinos 'Yes'}} checked {{/ifEquals}}/>
+					<input
+						class="form-check-input"
+						type="hidden"
+						id="hiddenHasBabyccinos"
+						name="spot[hasBabyccinos]"
+						value="{{spot.hasBabyccinos}}"
+					/>
+					<label class="form-check-label" for="hasBabyccinos">Babyccinos</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="hasToys" {{#ifEquals spot.hasToys 'Yes'}} checked {{/ifEquals}}/>
+					<input
+						class="form-check-input"
+						type="hidden"
+						id="hiddenHasToys"
+						name="spot[hasToys]"
+						value="{{spot.hasToys}}"
+					/>
+					<label class="form-check-label" for="hasToys">Toys</label>
+				</div>
+			</section>
 			<div class="mb-3">
 				<label class="form-label" for="location">Location</label>
 				<input
@@ -81,3 +157,4 @@
 		</form>
 	</div>
 </div>
+<script src="/js/events.js"></script>
