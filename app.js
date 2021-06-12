@@ -197,7 +197,13 @@ const mongoose = require(`mongoose`);
 const hbs = require(`hbs`);
 // register helper to compare values in hbs templates
 hbs.registerHelper(`ifEquals`, function (a, b, opts) {
-    if (a.toString() === b.toString()) {
+    if (a) {
+        a.toString();
+    }
+    if (b) {
+        b.toString();
+    }
+    if (a === b) {
         return opts.fn(this);
     }
     return opts.inverse(this);
