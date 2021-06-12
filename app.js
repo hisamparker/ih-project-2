@@ -195,14 +195,58 @@ if (process.env.NODE_ENV !== `production`) {
 const express = require(`express`);
 const mongoose = require(`mongoose`);
 const hbs = require(`hbs`);
+
+const path = require(`path`);
+// with method override you can make your app RESTful by having descriptive http verbs like PUT PATCH and DELETE
+// https://lo-victoria.com/a-deep-look-into-restful-apis
+const methodOverride = require(`method-override`);
+const flash = require(`connect-flash`);
+const session = require(`express-session`);
+const passport = require(`passport`);
+const LocalStrategy = require(`passport-local`);
+const sanitizeMongo = require(`express-mongo-sanitize`);
+const MongoStore = require(`connect-mongo`)(session);
+// change on deploy
+const dbUrl = process.env.MONGO_ATLAS_URL || `mongodb://localhost:27017/${process.env.DB_NAME}`;
+const store = new MongoStore({
+    url: dbUrl,
+    secret: process.env.MONGO_STORE_SECRET,
+    // so you don't resave session on db every time user refreshes, instead limit a period of time - if nothing has changed, only update every 24 hours
+    // in seconds not milliseconds like session, pffft
+    touchAfter: 24 * 60 * 60,
+});
+
+store.on(`error`, function (e) {
+    console.log(`session store error`, e);
+});
+
+// create validation schemas!
+const Joi = require(`joi`);
+
+// local require
+const spotRoutes = require(`./routes/spot.routes`);
+const reviewRoutes = require(`./routes/review.routes`);
+const userRoutes = require(`./routes/user.routes`);
+const ErrorHandler = require(`./utils/ErrorHandlers`);
+const User = require(`./models/user.model`);
+
+const app = express();
+
+require(`./configs/db.config`);
+
+app.set(`view engine`, `hbs`);
+// provides path to views - we always want the file we're trying to access the view from to be able to reach views
+app.set(`views`, path.join(__dirname, `views`));
+// Path to the location for handlebars partials here:
+hbs.registerPartials(path.join(__dirname, `views/partials`));
 // register helper to compare values in hbs templates
 hbs.registerHelper(`ifEquals`, function (a, b, opts) {
-    // if (a) {
-    //     a.toString();
-    // }
-    // if (b) {
-    //     b.toString();
-    // }
+    if (a) {
+        a.toString();
+    }
+    if (b) {
+        b.toString();
+    }
     if (a === b) {
         return opts.fn(this);
     }
@@ -251,50 +295,6 @@ hbs.registerHelper(`iff`, function (a, operator, b, opts) {
 hbs.registerHelper(`inc`, function (value, options) {
     return parseInt(value) + 1;
 });
-
-const path = require(`path`);
-// with method override you can make your app RESTful by having descriptive http verbs like PUT PATCH and DELETE
-// https://lo-victoria.com/a-deep-look-into-restful-apis
-const methodOverride = require(`method-override`);
-const flash = require(`connect-flash`);
-const session = require(`express-session`);
-const passport = require(`passport`);
-const LocalStrategy = require(`passport-local`);
-const sanitizeMongo = require(`express-mongo-sanitize`);
-const MongoStore = require(`connect-mongo`)(session);
-// change on deploy
-const dbUrl = process.env.MONGO_ATLAS_URL || `mongodb://localhost:27017/${process.env.DB_NAME}`;
-const store = new MongoStore({
-    url: dbUrl,
-    secret: process.env.MONGO_STORE_SECRET,
-    // so you don't resave session on db every time user refreshes, instead limit a period of time - if nothing has changed, only update every 24 hours
-    // in seconds not milliseconds like session, pffft
-    touchAfter: 24 * 60 * 60,
-});
-
-store.on(`error`, function (e) {
-    console.log(`session store error`, e);
-});
-
-// create validation schemas!
-const Joi = require(`joi`);
-
-// local require
-const spotRoutes = require(`./routes/spot.routes`);
-const reviewRoutes = require(`./routes/review.routes`);
-const userRoutes = require(`./routes/user.routes`);
-const ErrorHandler = require(`./utils/ErrorHandlers`);
-const User = require(`./models/user.model`);
-
-const app = express();
-
-require(`./configs/db.config`);
-
-app.set(`view engine`, `hbs`);
-// provides path to views - we always want the file we're trying to access the view from to be able to reach views
-app.set(`views`, path.join(__dirname, `views`));
-// Path to the location for handlebars partials here:
-hbs.registerPartials(path.join(__dirname, `views/partials`));
 
 // parse the data coming in
 app.use(express.json());
