@@ -44,7 +44,7 @@
 
             {{log 'auth' spot.author._id 'sessuser' sessionUser._id}}
             {{#if sessionUser}}
-            {{#ifEquals ../spot.author._id sessionUser._id }}
+            {{#ifEquals ./spot.author._id sessionUser._id }}
              <p class='card-text'>auth{{ spot.author._id }}</p>
                 <p class='card-text'>session{{ sessionUser._id }}</p>
             <div class='card-body'>
