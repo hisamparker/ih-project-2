@@ -364,9 +364,9 @@ app.use((err, req, res, next) => {
 // app.use((err, req, res, next) => {
 //   handleError(err, res);
 // });
-
-app.listen(process.env.PORT, () => {
-    console.log(`listening on ${process.env.PORT}`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`listening on ${port}`);
 });
 
 module.exports = app;
