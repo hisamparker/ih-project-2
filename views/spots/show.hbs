@@ -28,8 +28,8 @@
             <div class='card-body'>
                 <h5 class='card-title'>{{ spot.name }}</h5>
                 <p class='card-text'>{{ spot.description }}</p>
-                <p class='card-text'>{{ spot.author._id }}</p>
-                <p class='card-text'>{{ sessionUser._id }}</p>
+                <p class='card-text'>auth{{ spot.author._id }}</p>
+                <p class='card-text'>session{{ sessionUser._id }}</p>
             </div>
             <div class='card-header'>{{ spot.location }}</div>
             <ul class='list-group list-group-flush'>
