@@ -128,16 +128,13 @@ hbs.registerHelper(`math`, function (value1, value2) {
 hbs.registerHelper(`capitalizeFirstLetters`, function (input) {
     const stringifiedInput = `${input}`;
     console.log(`input`, stringifiedInput);
+    const inputArray = stringifiedInput.split(` `);
     if (stringifiedInput.indexOf(` `) >= 0) {
-        const inputArray = stringifiedInput.split(` `);
-        for (let i = 0; i < inputArray.length; i++) {
-            inputArray[i] = inputArray[i][0].toUpperCase() + inputArray[i].slice(1);
-        }
-        const capitalizedInputs = inputArray.join(` `);
-        return capitalizedInputs;
+        const capitalizedWords = inputArray.map((word) => word[0].toUpperCase() + word.slice(1)).join(` `);
+        return capitalizedWords;
     }
-    const capitalizedInput = stringifiedInput.charAt(0).toUpperCase() + stringifiedInput.slice(1);
-    return capitalizedInput;
+    const capitalizedWord = stringifiedInput.charAt(0).toUpperCase() + stringifiedInput.slice(1);
+    return capitalizedWord;
 });
 
 hbs.registerHelper(`capitalizeFirstLetter`, function (input) {
