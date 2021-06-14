@@ -24,10 +24,10 @@ router.get(`/:id/edit`, isLoggedIn, isAuthor, tryCatchWrapper(spots.renderEditSp
 
 router.put(`/:id/edit`, isLoggedIn, isAuthor, fileUpload.array(`image`), validateSpot, tryCatchWrapper(spots.editSpot));
 
-// remember to put other routes prefixed by / before this route or their will be a load error because what's after the route will be read by the client as an id
-router.get(`/:id`, tryCatchWrapper(spots.renderSelectedSpot));
-
 // path, check if logged in, then check if author, then handle promises, then callbacks for deleting/destroying!
 router.delete(`/:id/delete`, isLoggedIn, isAuthor, tryCatchWrapper(spots.destroySelectedSpot));
+
+// remember to put other routes prefixed by / before this route or their will be a load error because what's after the route will be read by the client as an id
+router.get(`/:slug/:id/`, tryCatchWrapper(spots.renderSelectedSpot));
 
 module.exports = router;

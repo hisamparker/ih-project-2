@@ -4,9 +4,8 @@ const mongoose = require(`mongoose`);
 const cities = require(`./cities`);
 const { places, descriptors, images } = require(`./seedHelpers`);
 const Spot = require(`../models/spot.model`);
-const dbUrl =
-	process.env.MONGO_ATLAS_URL ||
-	`mongodb://localhost:27017/${process.env.DB_NAME}`;
+const dbUrl = `mongodb://localhost:27017/${process.env.DB_NAME}`;
+// const dbUrl = process.env.MONGO_ATLAS_URL;
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -28,7 +27,7 @@ const selection = (array) => array[Math.floor(Math.random() * array.length)];
 const seedDB = async () => {
     try {
         // delete db before seeding
-        // await Spot.deleteMany({});
+        await Spot.deleteMany({});
         // loop over cities array
         for (let i = 0; i < 50; i++) {
             const rand1000 = Math.floor(Math.random() * 1000);
@@ -69,7 +68,7 @@ const seedDB = async () => {
             await spot.save();
         }
     } catch (e) {
-        console.log(e)
+        console.log(e);
     }
 };
 

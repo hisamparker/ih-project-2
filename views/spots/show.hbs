@@ -44,7 +44,7 @@
             {{#ifEquals spot.author._id sessionUser._id }}
             <div class='card-body'>
                 <a href='/spots/{{ spot._id }}/edit' class='card-link'>Edit</a>
-                <form class='d-inline ml-3' action='{{ spot._id }}/delete?_method=DELETE' method='POST'>
+                <form class='d-inline ml-3' action='/spots/{{ spot._id }}/delete?_method=DELETE' method='POST'>
                     <button id="delete" class='card-link'>Delete</button>
                 </form>
             </div>
