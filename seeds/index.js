@@ -4,8 +4,8 @@ const mongoose = require(`mongoose`);
 const cities = require(`./cities`);
 const { places, descriptors, images } = require(`./seedHelpers`);
 const Spot = require(`../models/spot.model`);
-const dbUrl = `mongodb://localhost:27017/${process.env.DB_NAME}`;
-// const dbUrl = process.env.MONGO_ATLAS_URL;
+// const dbUrl = `mongodb://localhost:27017/${process.env.DB_NAME}`;
+const dbUrl = process.env.MONGO_ATLAS_URL;
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,

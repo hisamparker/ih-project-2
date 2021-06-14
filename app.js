@@ -115,8 +115,27 @@ hbs.registerHelper(`iff`, function (a, operator, b, opts) {
     return opts.inverse(this);
 });
 
-// parse the data coming in
-app.use(express.json());
+hbs.registerHelper(`capitalizeFirstLetters`, function (input) {
+    const stringifiedInput = `${input}`;
+    console.log(`input`, stringifiedInput);
+    if (stringifiedInput.indexOf(` `) >= 0) {
+        const inputArray = stringifiedInput.split(` `);
+        for (let i = 0; i < inputArray.length; i++) {
+            inputArray[i] = inputArray[i][0].toUpperCase() + inputArray[i].slice(1);
+        }
+        const capitalizedInputs = inputArray.join(` `);
+        return capitalizedInputs;
+    }
+    const capitalizedInput = stringifiedInput.charAt(0).toUpperCase() + stringifiedInput.slice(1);
+    return capitalizedInput;
+});
+
+hbs.registerHelper(`capitalizeFirstLetter`, function (input) {
+    const stringifiedInput = `${input}`;
+    const capitalizedInput = stringifiedInput.charAt(0).toUpperCase() + stringifiedInput.slice(1);
+    return capitalizedInput;
+});
+
 app.use(express.urlencoded({ extended: true }));
 // Use method override so I can use all http verbs with express
 app.use(methodOverride(`_method`));

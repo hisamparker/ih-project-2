@@ -7,7 +7,8 @@ const spotSchema = new Schema(
     {
         name: {
             type: String,
-            // required: [true, `Please name your spot`],
+            lowercase: true,
+            trim: true,
         },
         slug: {
             type: String,

@@ -26,10 +26,10 @@
         </div>
         <div class='card mb-3'>
             <div class='card-body'>
-                <h5 class='card-title'>{{ spot.name }}</h5>
-                <p class='card-text'>{{ spot.description }}</p>
+                <h5 class='card-title'>{{ capitalizeFirstLetters spot.name }}</h5>
+                <p class='card-text'>{{ capitalizeFirstLetter spot.description }}</p>
             </div>
-            <div class='card-header'>{{ spot.location }}</div>
+            <div class='card-header'>{{capitalizeFirstLetters spot.location }}</div>
             <ul class='list-group list-group-flush'>
                 <li class='list-group-item '>Change Table: {{ spot.hasChangeTable }} </li>
                 <li class='list-group-item '>Public Toilet: {{ spot.hasPublicToilet }} </li>
@@ -38,7 +38,7 @@
                 <li class='list-group-item '>Toys: {{ spot.hasToys }} </li>
                 <li class='list-group-item '>Babyccinos: {{ spot.hasBabyccinos }} </li>
             </ul>
-            <div class='card-footer'>Thanks to {{ spot.author.username }} for sharing ♡</div>
+            <div class='card-footer'>Thanks to {{capitalizeFirstLetters spot.author.username }} for sharing ♡</div>
 
             {{#if sessionUser}}
             {{#ifEquals spot.author._id sessionUser._id }}
@@ -63,7 +63,7 @@
             <div class='card-body'>
                 <h4 class='card-title display-6'>
                     Tell us!
-                    <small class='text-muted'>Is {{ spot.name }} cute?</small>
+                    <small class='text-muted'>Is {{capitalizeFirstLetters spot.name }} cute?</small>
                 </h4>
                 <div class='card-body'>
                     {{#if sessionUser}}
@@ -119,7 +119,7 @@
                         {{!-- <h5 class='card-title'>Rating : {{ rating }} / 5</h5> --}}
                         <h5 class='card-title '>Rating</h5>
                         <p class="starability-result" data-rating={{rating}}></p>
-                        <h6 class="card-subtitle mb-2 text-muted">Author: {{author.username}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Author: {{capitalizeFirstLetters author.username}}</h6>
                         <p class='card-text'>Review : {{ body }}</p>
                     </section>
                     {{#if ../sessionUser}}
