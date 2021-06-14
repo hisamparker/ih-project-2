@@ -38,6 +38,7 @@
                 <li class='list-group-item '>Toys: {{ spot.hasToys }} </li>
                 <li class='list-group-item '>Babyccinos: {{ spot.hasBabyccinos }} </li>
             </ul>
+            {{log spot.author.username}}
             <div class='card-footer'>Thanks to {{capitalizeFirstLetters spot.author.username }} for sharing ♡</div>
 
             {{#if sessionUser}}
