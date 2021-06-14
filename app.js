@@ -115,6 +115,16 @@ hbs.registerHelper(`iff`, function (a, operator, b, opts) {
     return opts.inverse(this);
 });
 
+hbs.registerHelper(`math`, function (value1, value2) {
+    console.log(`1`, value1, `2`, value2);
+    value1 = parseFloat(value1);
+    value2 = parseFloat(value2);
+
+    const result = value1 + value2;
+    console.log(`result`, result);
+    return result;
+});
+
 hbs.registerHelper(`capitalizeFirstLetters`, function (input) {
     const stringifiedInput = `${input}`;
     console.log(`input`, stringifiedInput);
