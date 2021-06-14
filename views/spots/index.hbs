@@ -10,13 +10,15 @@
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
-					<h5 class="card-title">{{name}}</h5>
-					<p class="card-text">{{description}}</p>
+					<h5 class="card-title">{{capitalizeFirstLetters name}}</h5>
+					<p class="card-text">{{capitalizeFirstLetter description}}</p>
 					<p class="card-text"><small
 							class="text-muted"
-						>{{location}}</small></p>
-					<a class="btn btn-outline-primary" href="/spots/{{this._id}}">View
-						Spot</a>
+						>{{capitalizeFirstLetters location}}</small></p>
+					<a
+						class="btn btn-outline-primary"
+						href="/spots/{{this.slug}}/{{this._id}}"
+					>View Spot</a>
 				</div>
 			</div>
 		</div>

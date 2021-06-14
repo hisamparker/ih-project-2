@@ -1,4 +1,5 @@
 const { Schema, model } = require(`mongoose`);
+const slug = require(`mongoose-slug-generator`);
 
 const Review = require(`./review.model`);
 
@@ -6,7 +7,13 @@ const spotSchema = new Schema(
     {
         name: {
             type: String,
-            // required: [true, `Please name your spot`],
+            lowercase: true,
+            trim: true,
+        },
+        slug: {
+            type: String,
+            slug: `name`,
+            unique: true,
         },
         hasChangeTable: {
             type: String,
@@ -70,12 +77,16 @@ const spotSchema = new Schema(
     }
 );
 
+// Initialize
+spotSchema.plugin(slug);
+
 // middleware that runs after findOneAndDelete is called on a spot, the spot's document is passed into the callback
 spotSchema.post(`findOneAndDelete`, async (spot) => {
-    // if it exists, delete all the reviews in the document, $in (looks for the thing to remove inside the given param), spot.reviews is where I want to look for the reviews I want to delete
+    // if it exists, delete all the reviews in the document
     if (spot) {
         await Review.deleteMany({
             _id: {
+                // $in (looks for the thing to remove inside the given param), spot.reviews is where I want to look for the reviews I want to delete
                 $in: spot.reviews,
             },
         });

@@ -29,6 +29,7 @@ const Joi = BaseJoi.extend(extension);
 module.exports.spotSchema = Joi.object({
     spot: Joi.object({
         name: Joi.string().required().escapeHTML(),
+        slug: Joi.string(),
         hasChangeTable: Joi.string(),
         hasPublicToilet: Joi.string(),
         hasToys: Joi.string(),

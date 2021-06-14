@@ -52,7 +52,7 @@ module.exports.createNewSpot = async (req, res, next) => {
     }
     // flash a success message before redirecting to the new spot
     req.flash(`success`, `You added a new cute spot, thanks!`);
-    res.redirect(`/spots/${savedSpot._id}`);
+    res.redirect(`/spots/${savedSpot.slug}/${savedSpot._id}`);
 };
 
 module.exports.renderEditSpotForm = async (req, res, next) => {
@@ -81,10 +81,11 @@ module.exports.editSpot = async (req, res, next) => {
     updatedSpot.images.push(...newImages);
     await updatedSpot.save();
     req.flash(`success`, `You've made your spot even cuter!`);
-    return res.redirect(`/spots/${updatedSpot._id}`);
+    return res.redirect(`/spots/${updatedSpot.slug}/${updatedSpot._id}`);
 };
 
 module.exports.renderSelectedSpot = async (req, res, next) => {
+    console.log(`params`, req.params);
     const { id } = req.params;
     // populate reviews to get all info on reviews, populate author to get details of spot author, can now access spot.author.username
     const spot = await Spot.findById(id)

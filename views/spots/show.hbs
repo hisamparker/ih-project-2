@@ -1,5 +1,5 @@
-<div class='row'>
-    <div class='col-8 offset-2'>
+<div class='row justify-content-center'>
+    <div class='col-10 col-md-6'>
         <div id="carouselExampleControls" class="carousel slide mb-3" data-bs-ride="carousel">
             {{!-- <div class="carousel-indicators">
                 {{#each spot.images}}
@@ -26,10 +26,10 @@
         </div>
         <div class='card mb-3'>
             <div class='card-body'>
-                <h5 class='card-title'>{{ spot.name }}</h5>
-                <p class='card-text'>{{ spot.description }}</p>
+                <h5 class='card-title'>{{ capitalizeFirstLetters spot.name }}</h5>
+                <p class='card-text'>{{ capitalizeFirstLetter spot.description }}</p>
             </div>
-            <div class='card-header'>{{ spot.location }}</div>
+            <div class='card-header'>{{capitalizeFirstLetters spot.location }}</div>
             <ul class='list-group list-group-flush'>
                 <li class='list-group-item '>Change Table: {{ spot.hasChangeTable }} </li>
                 <li class='list-group-item '>Public Toilet: {{ spot.hasPublicToilet }} </li>
@@ -38,14 +38,13 @@
                 <li class='list-group-item '>Toys: {{ spot.hasToys }} </li>
                 <li class='list-group-item '>Babyccinos: {{ spot.hasBabyccinos }} </li>
             </ul>
-                <div class='card-footer'>Thanks to {{ spot.author.username }} for sharing ♡</div>
+            <div class='card-footer'>Thanks to {{capitalizeFirstLetters spot.author.username }} for sharing ♡</div>
 
-            {{log 'auth' spot.author._id 'sessuser' sessionUser._id}}
             {{#if sessionUser}}
             {{#ifEquals spot.author._id sessionUser._id }}
             <div class='card-body'>
                 <a href='/spots/{{ spot._id }}/edit' class='card-link'>Edit</a>
-                <form class='d-inline ml-3' action='{{ spot._id }}/delete?_method=DELETE' method='POST'>
+                <form class='d-inline ml-3' action='/spots/{{ spot._id }}/delete?_method=DELETE' method='POST'>
                     <button id="delete" class='card-link'>Delete</button>
                 </form>
             </div>
@@ -60,12 +59,11 @@
         <div class="card mb-3 mx-auto" id='map' style='width: 100%; height: 300px;'></div>
         {{!-- hide from author --}}
         {{#ifNotEqual sessionUser._id spot.author._id}}
-        {{log 'auth' spot.author._id 'sessuser' sessionUser._id}}
         <article class='card mb-3'>
             <div class='card-body'>
                 <h4 class='card-title display-6'>
                     Tell us!
-                    <small class='text-muted'>Is {{ spot.name }} cute?</small>
+                    <small class='text-muted'>Is {{capitalizeFirstLetters spot.name }} cute?</small>
                 </h4>
                 <div class='card-body'>
                     {{#if sessionUser}}
@@ -113,31 +111,29 @@
         </article>
         {{/ifNotEqual}}
         {{#if spot.reviews}}
-            <section class='card reviews mb4'>
+            <section class='reviews mb4'>
                 <h4 class='display-6 px-2 mt-5 mb-4'>What people are saying :</h4>
                 {{#each spot.reviews}}
-                <article class='card-body mb-3'>
+                <article class='card mb-3'>
                     <section class='card-body'>
                         {{!-- <h5 class='card-title'>Rating : {{ rating }} / 5</h5> --}}
                         <h5 class='card-title '>Rating</h5>
                         <p class="starability-result" data-rating={{rating}}></p>
-                        <h6 class="card-subtitle mb-2 text-muted">Author: {{author.username}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Author: {{capitalizeFirstLetters author.username}}</h6>
                         <p class='card-text'>Review : {{ body }}</p>
                     </section>
+                    {{#if ../sessionUser}}
+                    {{#ifEquals author._id ../sessionUser._id}}
+                    <div class='card-footer'>
+                        <a href='/spots/{{ ../spot._id }}/reviews/{{this._id}}/edit' class='card-link'>Edit</a>
+                        <form class='d-inline ml-3' action='/spots/{{ ../spot._id }}/reviews/{{ this._id }}?_method=DELETE' method='POST'>   
+                            <button id="delete" class='card-link'>Delete Review</button>
+                        </form>
+                    </div>   
+                    {{else}}
+                    {{/ifEquals}}
+                    {{/if}}
                 </article>
-                {{#if ../sessionUser}}
-                {{log author._id ../sessionUser._id}}
-                {{#ifEquals author._id ../sessionUser._id}}
-                {{log ./author._id .../sessionUser._id}}
-                <div class='card-footer'>
-                    <a href='/spots/{{ ../spot._id }}/reviews/{{this._id}}/edit' class='card-link'>Edit</a>
-                    <form class='d-inline ml-3' action='/spots/{{ ../spot._id }}/reviews/{{ this._id }}?_method=DELETE' method='POST'>   
-                        <button id="delete" class='card-link'>Delete Review</button>
-                    </form>
-                </div>
-                {{else}}
-                {{/ifEquals}}
-                {{/if}}
                 {{/each}}
             </section>
         {{/if}}
