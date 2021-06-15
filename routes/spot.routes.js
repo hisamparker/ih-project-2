@@ -19,7 +19,15 @@ router.post(`/`, isLoggedIn, fileUpload.array(`image`), validateSpot, tryCatchWr
 
 router.get(`/:id/edit`, isLoggedIn, isAuthor, tryCatchWrapper(spots.renderEditSpotForm));
 
-router.put(`/:id/edit`, isLoggedIn, isAuthor, fileUpload.array(`image`), validateSpot, tryCatchWrapper(spots.editSpot));
+// limit is 10
+router.put(
+    `/:id/edit`,
+    isLoggedIn,
+    isAuthor,
+    fileUpload.array(`image`, 10),
+    validateSpot,
+    tryCatchWrapper(spots.editSpot)
+);
 
 // path, check if logged in, then check if author, then handle promises, then callbacks for deleting/destroying!
 router.delete(`/:id/delete`, isLoggedIn, isAuthor, tryCatchWrapper(spots.destroySelectedSpot));

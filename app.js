@@ -7,6 +7,7 @@ const mongoose = require(`mongoose`);
 const hbs = require(`hbs`);
 // The path module provides functionality to access and interact with the file system (fs)
 const path = require(`path`);
+const favicon = require(`serve-favicon`);
 // with method override you can make your app RESTful by having descriptive http verbs like PUT PATCH and DELETE https://lo-victoria.com/a-deep-look-into-restful-apis
 const methodOverride = require(`method-override`);
 // The flash is a special area of the session used for storing messages https://www.npmjs.com/package/connect-flash
@@ -47,100 +48,17 @@ require(`./configs/db.config`);
 
 const app = express();
 
+app.use(favicon(path.join(__dirname, `public`, `images/favicon.ico`)));
 // set the view engine to hbs
 app.set(`view engine`, `hbs`);
 // provides path to views - we always want the file we're trying to access the view from to be able to reach views
 app.set(`views`, path.join(__dirname, `views`));
 // Path to the location for handlebars partials here:
 hbs.registerPartials(path.join(__dirname, `views/partials`));
-// register helper to compare values in hbs templates
-hbs.registerHelper(`ifEquals`, function (a, b, opts) {
-    if (a) {
-        a = `${a}`;
-    }
-    if (b) {
-        b = `${b}`;
-    }
-    if (a === b) {
-        return opts.fn(this);
-    }
-    return opts.inverse(this);
-});
-// Check if values are not equal, return value if true
-hbs.registerHelper(`ifNotEqual`, function (a, b, opts) {
-    if (a) {
-        a = `${a}`;
-    }
-    if (b) {
-        b = `${b}`;
-    }
-    if (a !== b) {
-        return opts.fn(this);
-    }
-    return opts.inverse(this);
-});
-
-// increment value
-hbs.registerHelper(`inc`, function (value, options) {
-    return parseInt(value) + 1;
-});
-
-// use multiple comparators
-hbs.registerHelper(`iff`, function (a, operator, b, opts) {
-    let bool = false;
-    if (a) {
-        a = `${a}`;
-    }
-    if (b) {
-        b = `${b}`;
-    }
-    switch (operator) {
-        case `===`:
-            bool = a === b;
-            break;
-        case `>`:
-            bool = a > b;
-            break;
-        case `<`:
-            bool = a < b;
-            break;
-        default:
-            bool = a === b;
-    }
-
-    if (bool) {
-        return opts.fn(this);
-    }
-    return opts.inverse(this);
-});
-
-// add
-hbs.registerHelper(`add`, function (value1, value2) {
-    value1 = parseFloat(value1);
-    value2 = parseFloat(value2);
-
-    const result = value1 + value2;
-    return result;
-});
-
-// capitalize all first letters (for names!)
-hbs.registerHelper(`capitalizeFirstLetters`, function (input) {
-    const stringifiedInput = `${input}`;
-    const inputArray = stringifiedInput.split(` `);
-    if (stringifiedInput.indexOf(` `) >= 0) {
-        const capitalizedWords = inputArray.map((word) => word[0].toUpperCase() + word.slice(1)).join(` `);
-        return capitalizedWords;
-    }
-    const capitalizedWord = stringifiedInput.charAt(0).toUpperCase() + stringifiedInput.slice(1);
-    return capitalizedWord;
-});
-
-// capitalize only first letter (paragraphs)
-hbs.registerHelper(`capitalizeFirstLetter`, function (input) {
-    const stringifiedInput = `${input}`;
-    const capitalizedInput = stringifiedInput.charAt(0).toUpperCase() + stringifiedInput.slice(1);
-    return capitalizedInput;
-});
+// require helpers file
+const helpers = require(`./helpers/hbsHelpers.js`);
+// register all helpers
+hbs.registerHelper(helpers);
 
 // parse url encoded data (form data)
 app.use(express.urlencoded({ extended: true }));
@@ -186,7 +104,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 // tell app to use our locals so we can access stuff
 app.use((req, res, next) => {
-    console.log(`session`, req.session);
     // passport adds a user object to the request object, res.locals makes content accessible to all templates, so now templates have access to session user
     res.locals.sessionUser = req.user;
     // if flash.success has a value on the request object, use res.locals.success because of locals we don't have to pass the value to hbs templates because we always have access to success
