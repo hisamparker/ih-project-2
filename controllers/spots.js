@@ -25,17 +25,6 @@ module.exports.createNewSpot = async (req, res, next) => {
             limit: 1,
         })
         .send();
-    // geoJSON https://geojson.org/
-    // {
-    //     "type": "Feature",
-    //     "geometry": {
-    //         "type": "Point",
-    //         "coordinates": [125.6, 10.1]
-    //     },
-    //     "properties": {
-    //         "name": "Dinagat Islands"
-    //     }
-    // }
     // this returns geoJSON
     const spotGeometry = geocodingResponse.body.features[0].geometry;
     const newSpot = new Spot(req.body.spot);

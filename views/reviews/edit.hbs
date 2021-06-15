@@ -2,10 +2,11 @@
 	<h1 class="text-center">Edit Review</h1>
 	<div class="col-6 offset-3">
 		<form
-			action="/spots/{{spotId}}/reviews/{{review._id}}/edit?_method=PUT"
+			action="/spots/{{slug}}/{{spotId}}/reviews/{{review._id}}/edit?_method=PUT"
 			method="POST"
 			novalidate
 			class="validated_form"
+			{{log slug}}
 		>
 			<fieldset class="starability-heart mb-3">
 				<legend>First rating:</legend>

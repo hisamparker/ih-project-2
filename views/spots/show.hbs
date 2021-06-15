@@ -3,7 +3,7 @@
         <div id="carousel_main" class="carousel slide mb-3" data-bs-ride="carousel">
             <ol class="carousel-indicators">
                 {{#each spot.images}}
-                    <li data-target="#carousel_main" data-slide-to="{{@index}}" class="{{#ifEquals @index 0 }}active{{/ifEquals}}" aria-label="Slide {{math @index 1}}"></li>
+                    <li data-target="#carousel_main" data-slide-to="{{@index}}" class="{{#ifEquals @index 0 }}active{{/ifEquals}}" aria-label="Slide {{add @index 1}}"></li>
                     {{log 'ind2' @index}}
                 {{/each}}
             </ol>
@@ -69,7 +69,7 @@
                 </h4>
                 <div class='card-body'>
                     {{#if sessionUser}}
-                    <form action='/spots/{{ spot._id }}/reviews' method='POST' novalidate class='validated_form'>
+                    <form action='/spots/{{ spot.slug }}/{{ spot._id }}/reviews' method='POST' novalidate class='validated_form'>
                         <fieldset class="starability-heart mb-3">
                             <legend>First rating:</legend>
                             <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No review." />
@@ -127,8 +127,8 @@
                     {{#if ../sessionUser}}
                     {{#ifEquals author._id ../sessionUser._id}}
                     <div class='card-footer'>
-                        <a href='/spots/{{ ../spot._id }}/reviews/{{this._id}}/edit' class='card-link'>Edit</a>
-                        <form class='d-inline ml-3' action='/spots/{{ ../spot._id }}/reviews/{{ this._id }}?_method=DELETE' method='POST'>   
+                        <a href='/spots/{{../spot.slug}}/{{ ../spot._id }}/reviews/{{this._id}}/edit' class='card-link'>Edit</a>
+                        <form class='d-inline ml-3' action='/spots/{{../spot.slug}}/{{ ../spot._id }}/reviews/{{ this._id }}?_method=DELETE' method='POST'>   
                             <button id="delete" class='card-link'>Delete Review</button>
                         </form>
                     </div>   

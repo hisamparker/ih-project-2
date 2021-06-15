@@ -7,6 +7,7 @@ const Spot = require(`../models/spot.model`);
 // const dbUrl = `mongodb://localhost:27017/${process.env.DB_NAME}`;
 const dbUrl = process.env.MONGO_ATLAS_URL;
 
+// can probably just require from configs?
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -15,7 +16,9 @@ mongoose.connect(dbUrl, {
 });
 
 const db = mongoose.connection;
+// To handle errors after initial connection was established, you should listen for error events on the connection.
 db.on(`error`, console.error.bind(console, `connection error:`));
+// log the db name
 db.once(`open`, () => {
     console.log(`Database: ${process.env.DB_NAME} connected`);
 });

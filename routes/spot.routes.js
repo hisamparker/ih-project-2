@@ -1,8 +1,6 @@
 // router object, to separate out routes so they're not all in app
 const { Router } = require(`express`);
 const router = new Router();
-
-const Spot = require(`../models/spot.model`);
 // spots object that represents spots controllers, has access to all spot controller methods on it.
 const spots = require(`../controllers/spots`);
 const tryCatchWrapper = require(`../utils/tryCatchWrapper`);
@@ -15,7 +13,6 @@ const fileUpload = require(`../configs/cloudinary.config`);
 router.get(`/`, tryCatchWrapper(spots.index));
 
 // try to name controller methods in a really clear way so that I know exactly what they're doing... These are much longer than other people seem to make them, but I think that's ok, ask Michael
-
 router.get(`/new`, isLoggedIn, spots.renderNewSpotForm);
 
 router.post(`/`, isLoggedIn, fileUpload.array(`image`), validateSpot, tryCatchWrapper(spots.createNewSpot));

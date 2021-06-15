@@ -18,11 +18,14 @@ const extension = (joi) => ({
                 });
                 // if the validated / cleaned input is not equal to the original input, send this message
                 if (clean !== value) {
+                    console.log(`clean`, clean, `value`, value);
                     // janky fix for sanitize issue with ampersand
+                    if (value.includes(`<3`)) {
+                        return value;
+                    }
                     if (clean.includes(`&amp;`)) {
                         return value;
                     }
-                    console.log(`clean`, clean, `value`, value);
                     return helpers.error(`string.escapeHTML`, { value });
                 }
                 return clean;

@@ -1,3 +1,4 @@
+// create an error class that extends the express error instance, accepts both an error message and a status code
 class ErrorHandler extends Error {
     constructor(message, statusCode) {
         super();
