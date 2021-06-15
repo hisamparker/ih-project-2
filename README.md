@@ -45,4 +45,4 @@ https://ho99o9.bandcamp.com/releases
 
 ❤️ see license file for neat gnu stuff ❤️
 
-GNU General Public License v3.0 © 2021 [sam]()
+GNU General Public License v3.0 © 2021 [sam](http://samaraparker.com/)

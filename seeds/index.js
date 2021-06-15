@@ -40,7 +40,7 @@ const seedDB = async () => {
             const randomImagesFileName2 = randomImagesUrl2.substring(randomImagesUrl2.lastIndexOf(`cute-spot/`));
             const spot = await new Spot({
                 location: `${cities[rand1000].city}, ${cities[rand1000].state}`,
-                author: `60bb2188022c9e39f22d5a19`,
+                author: `60c672112f7d4400155f51d5`,
                 name: `${selection(descriptors)} ${selection(places)}`,
                 // https://dev.to/desi/using-the-unsplash-api-to-display-random-images-15co <- use this to seed using random images from unsplash api, not doing anymore, but nice to remember
                 images: [
