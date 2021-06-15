@@ -7,17 +7,24 @@ const extension = (joi) => ({
     type: `string`,
     base: joi.string(),
     messages: {
-        "string.escapeHTML": `{{#label}} can't include HTML you sneaky bastard!`,
+        "string.escapeHTML": `{{#label}} can't include HTML.`,
     },
     rules: {
         escapeHTML: {
             validate(value, helpers) {
                 const clean = sanitizeHtml(value, {
-                    allowedTags: [],
+                    allowedTags: [`&amp`],
                     allowedAttributes: {},
                 });
                 // if the validated / cleaned input is not equal to the original input, send this message
-                if (clean !== value) return helpers.error(`string.escapeHTML`, { value });
+                if (clean !== value) {
+                    // janky fix for sanitize issue with ampersand
+                    if (clean.includes(`&amp;`)) {
+                        return value;
+                    }
+                    console.log(`clean`, clean, `value`, value);
+                    return helpers.error(`string.escapeHTML`, { value });
+                }
                 return clean;
             },
         },
