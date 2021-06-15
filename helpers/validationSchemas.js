@@ -13,7 +13,7 @@ const extension = (joi) => ({
         escapeHTML: {
             validate(value, helpers) {
                 const clean = sanitizeHtml(value, {
-                    allowedTags: [`&amp`],
+                    allowedTags: [],
                     allowedAttributes: {},
                 });
                 // if the validated / cleaned input is not equal to the original input, send this message
