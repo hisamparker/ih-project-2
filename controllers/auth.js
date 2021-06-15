@@ -31,7 +31,6 @@ module.exports.renderLoginForm = (req, res, next) => {
     const desiredPath = req.session.originalUrl || `/spots`;
 
     console.log(`from get route : req.sess`, req.session.originalUrl, `desired`, desiredPath);
-    delete req.session.originalUrl;
     res.render(`users/login`);
 };
 

@@ -12,23 +12,25 @@
 		>
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div
+		<section
 			class="collapse navbar-collapse justify-content-between"
 			id="navbarNavAltMarkup"
 		>
-			<div class="navbar-nav">
+			<section class="navbar-nav">
 				<a class="nav-link" href="/">Home</a>
 				<a class="nav-link" href="/spots">All Spots</a>
+			</section>
+			<section class="navbar-nav align-self-center">
 				<a class="nav-link" href="/spots/new">New Spot</a>
-			</div>
-			<div class="navbar-nav align-self-end">
+			</section>
+			<section class="navbar-nav align-self-end">
 				{{#if sessionUser}}
 					<a class="nav-link" href="/logout">Log Out</a>
 				{{else}}
 					<a class="nav-link" href="/signup">Sign Up</a>
 					<a class="nav-link" href="/login">Log In</a>
 				{{/if}}
-			</div>
-		</div>
+			</section>
+		</section>
 	</div>
 </nav>

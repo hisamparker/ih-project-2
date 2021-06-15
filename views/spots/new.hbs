@@ -1,4 +1,4 @@
-<div class="row">
+<article class="row">
 	<h1 class="text-center">New Spot</h1>
 	<div class="col-6 offset-3">
 		{{! trying out bootstrap for validation, use color and words to validate because accessibility }}
@@ -10,7 +10,7 @@
 			class="validated_form"
 			enctype="multipart/form-data"
 		>
-			<div class="mb-3">
+			<section class="mb-3">
 				<label class="form-label" for="name">Name</label>
 				{{! [this groups all data inside under spot] }}
 				<input
@@ -26,99 +26,108 @@
 				<div class="invalid-feedback">
 					Please name your spot.
 				</div>
-			</div>
-			<section class="card-body">
+			</section>
+			<article>
 				<h5 class="card-title">How kid friendly is this spot?</h5>
-				<div class="form-check form-check-inline">
-					<input
-						class="form-check-input checky"
-						type="checkbox"
-						id="hasChangeTable"
-					/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasChangeTable"
-						name="spot[hasChangeTable]"
-						value="No"
-					/>
-					<label class="form-check-label" for="hasChangeTable">Change Table</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input
-						class="form-check-input checky"
-						type="checkbox"
-						id="hasPublicToilet"
-					/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasPublicToilet"
-						name="spot[hasPublicToilet]"
-						value="No"
-					/>
-					<label class="form-check-label" for="hasPublicToilet">Public Toilet</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input
-						class="form-check-input checky"
-						type="checkbox"
-						id="hasHighChairs"
-					/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasHighChairs"
-						name="spot[hasHighChairs]"
-						value="No"
-					/>
-					<label class="form-check-label" for="hasHighChairs">High Chairs</label>
-				</div>
-			</section>
-			<section class="card-body">
-				<div class="form-check form-check-inline">
-					<input
-						class="form-check-input checky"
-						type="checkbox"
-						id="hasKidsMenu"
-					/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasKidsMenu"
-						name="spot[hasKidsMenu]"
-						value="No"
-					/>
-					<label class="form-check-label" for="hasKidsMenu">Kids Menu</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input
-						class="form-check-input checky"
-						type="checkbox"
-						id="hasBabyccinos"
-					/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasBabyccinos"
-						name="spot[hasBabyccinos]"
-						value="No"
-					/>
-					<label class="form-check-label" for="hasBabyccinos">Babyccinos</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input checky" type="checkbox" id="hasToys" />
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasToys"
-						name="spot[hasToys]"
-						value="No"
-					/>
-					<label class="form-check-label" for="hasToys">Toys</label>
-				</div>
-			</section>
-			<div class="mb-3">
+				<section class="card-body">
+					<section class="form-check form-check-inline">
+						<input
+							class="form-check-input checky"
+							type="checkbox"
+							id="hasChangeTable"
+						/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasChangeTable"
+							name="spot[hasChangeTable]"
+							value="No"
+						/>
+						<label class="form-check-label" for="hasChangeTable">Change Table</label>
+					</section>
+					<section class="form-check form-check-inline">
+						<input
+							class="form-check-input checky"
+							type="checkbox"
+							id="hasPublicToilet"
+						/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasPublicToilet"
+							name="spot[hasPublicToilet]"
+							value="No"
+						/>
+						<label class="form-check-label" for="hasPublicToilet">Public Toilet</label>
+					</section>
+					<section class="form-check form-check-inline">
+						<input
+							class="form-check-input checky"
+							type="checkbox"
+							id="hasHighChairs"
+						/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasHighChairs"
+							name="spot[hasHighChairs]"
+							value="No"
+						/>
+						<label class="form-check-label" for="hasHighChairs">High Chairs</label>
+					</section>
+				</section>
+				<section class="card-body">
+					<section class="form-check form-check-inline">
+						<input
+							class="form-check-input checky"
+							type="checkbox"
+							id="hasKidsMenu"
+						/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasKidsMenu"
+							name="spot[hasKidsMenu]"
+							value="No"
+						/>
+						<label class="form-check-label" for="hasKidsMenu">Kids Menu</label>
+					</section>
+					<section class="form-check form-check-inline">
+						<input
+							class="form-check-input checky"
+							type="checkbox"
+							id="hasBabyccinos"
+						/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasBabyccinos"
+							name="spot[hasBabyccinos]"
+							value="No"
+						/>
+						<label
+							class="form-check-label"
+							for="hasBabyccinos"
+						>Babyccinos</label>
+					</section>
+					<section class="form-check form-check-inline">
+						<input
+							class="form-check-input checky"
+							type="checkbox"
+							id="hasToys"
+						/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasToys"
+							name="spot[hasToys]"
+							value="No"
+						/>
+						<label class="form-check-label" for="hasToys">Toys</label>
+					</section>
+				</section>
+			</article>
+			<section class="mb-3">
 				<label class="form-label" for="location">Location</label>
 				<input
 					class="form-control"
@@ -133,8 +142,8 @@
 				<div class="invalid-feedback">
 					Please add a location.
 				</div>
-			</div>
-			<div class="mb-3">
+			</section>
+			<section class="mb-3">
 
 				<label for="image" class="form-label">Select images</label>
 				<input
@@ -151,8 +160,8 @@
 				<div class="invalid-feedback">
 					Please add an image.
 				</div>
-			</div>
-			<div class="mb-3">
+			</section>
+			<section class="mb-3">
 				<label class="form-label" for="description">Description</label>
 				<textarea
 					class="form-control"
@@ -167,12 +176,12 @@
 				<div class="invalid-feedback">
 					Please give a description.
 				</div>
-			</div>
+			</section>
 			<div class="mb-3">
 				<button class="btn btn-info">Add Spot</button>
 				<a class="btn btn-outline-secondary" href="/spots">All Spots</a>
 			</div>
 		</form>
 	</div>
-</div>
+</article>
 <script src="/js/events.js"></script>

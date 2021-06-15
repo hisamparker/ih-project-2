@@ -1,13 +1,13 @@
-<div class='row justify-content-center'>
+<article class='row justify-content-center'>
     <div class='col-10 col-md-6'>
-        <div id="carousel_main" class="carousel slide mb-3" data-bs-ride="carousel">
+        <section id="carousel_main" class="carousel slide mb-3" data-bs-ride="carousel">
             <ol class="carousel-indicators">
                 {{#each spot.images}}
                     <li data-target="#carousel_main" data-slide-to="{{@index}}" class="{{#ifEquals @index 0 }}active{{/ifEquals}}" aria-label="Slide {{add @index 1}}"></li>
                     {{log 'ind2' @index}}
                 {{/each}}
             </ol>
-            <div class="carousel-inner">
+            <section class="carousel-inner">
                 {{#each spot.images}}
                         <div class="carousel-item {{#ifEquals @index 0 }}active{{/ifEquals}}">
                             <img src='{{ url }}' alt='Image of {{ spot.name }}' class="d-block w-100">
@@ -23,9 +23,9 @@
                         </a>
                     {{/iff}}
                 {{/each}}
-            </div>
-        </div>
-        <div class='card mb-3'>
+            </section>
+        </section>
+        <article class='card mb-3'>
             <div class='card-body'>
                 <h5 class='card-title'>{{ capitalizeFirstLetters spot.name }}</h5>
                 <p class='card-text'>{{ capitalizeFirstLetter spot.description }}</p>
@@ -56,9 +56,9 @@
             <div class='card-footer text-muted'>
                 Last update : {{ updatedAt }}
             </div>
-        </div>
+        </article>
         {{!-- render map (code from mapbox) --}}
-        <div class="card mb-3 mx-auto" id='map' style='width: 100%; height: 300px;'></div>
+        <section class="card mb-3 mx-auto" id='map' style='width: 100%; height: 300px;'></section>
         {{!-- hide from author --}}
         {{#ifNotEqual sessionUser._id spot.author._id}}
         <article class='card mb-3'>
@@ -67,7 +67,7 @@
                     Tell us!
                     <small class='text-muted'>Is {{capitalizeFirstLetters spot.name }} cute?</small>
                 </h4>
-                <div class='card-body'>
+                <section class='card-body'>
                     {{#if sessionUser}}
                     <form action='/spots/{{ spot.slug }}/{{ spot._id }}/reviews' method='POST' novalidate class='validated_form'>
                         <fieldset class="starability-heart mb-3">
@@ -108,7 +108,7 @@
                         <a href='/login' class='card-link btn btn-info '>Login</a>
                     </div>
                     {{/if}}
-                </div>
+                </section>
             </div>
         </article>
         {{/ifNotEqual}}
@@ -140,7 +140,7 @@
             </section>
         {{/if}}
     </div>
-</div>
+</article>
 <script>const spot = `{{spot.geometry.coordinates}}`</script>
 <script>const spotName = `{{spot.name}}`</script>
 <script>const mapToken = `{{map}}`</script>

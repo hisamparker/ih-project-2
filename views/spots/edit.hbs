@@ -1,6 +1,6 @@
-<div class="row">
+<article class="row">
 	<h1 class="text-center">Edit Spot</h1>
-	<div class="col-6 offset-3">
+	<section class="col-6 offset-3">
 		<form
 			action="edit?_method=PUT"
 			method="POST"
@@ -8,7 +8,7 @@
 			class="validated_form"
 			enctype="multipart/form-data"
 		>
-			<div class="mb-3">
+			<section class="mb-3">
 				<label class="form-label" for="name">Name</label>
 				<input
 					class="form-control"
@@ -24,84 +24,86 @@
 				<div class="invalid-feedback">
 					Please name your spot (-_-｡)
 				</div>
-			</div>
-			<section class="card-body">
+			</section>
+			<article>
 				<h5 class="card-title">How kid friendly is this spot?</h5>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input checky" type="checkbox" id="hasChangeTable" {{#ifEquals spot.hasChangeTable 'Yes'}} checked {{/ifEquals}}/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasChangeTable"
-						name="spot[hasChangeTable]"
-						value="{{spot.hasChangeTable}}"
-					/>
-					<label class="form-check-label" for="hasChangeTable">Change Table</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input
-						class="form-check-input checky"
-						type="checkbox"
-						id="hasPublicToilet"
-						{{#ifEquals spot.hasPublicToilet 'Yes'}} checked {{/ifEquals}}
-					/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasPublicToilet"
-						name="spot[hasPublicToilet]"
-						value="{{spot.hasPublicToilet}}"
-					/>
-					<label class="form-check-label" for="hasPublicToilet">Public Toilet</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input checky" type="checkbox" id="hasHighChairs" {{#ifEquals spot.hasHighChairs 'Yes'}} checked {{/ifEquals}}/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasHighChairs"
-						name="spot[hasHighChairs]"
-						value="{{spot.hasHighChairs}}"
-					/>
-					<label class="form-check-label" for="hasHighChairs">High Chairs</label>
-				</div>
-			</section>
-			<section class="card-body">
-				<div class="form-check form-check-inline">
-					<input class="form-check-input checky" type="checkbox" id="hasKidsMenu" {{#ifEquals spot.hasKidsMenu 'Yes'}} checked {{/ifEquals}}/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasKidsMenu"
-						name="spot[hasKidsMenu]"
-						value="{{spot.hasKidsMenu}}"
-					/>
-					<label class="form-check-label" for="hasKidsMenu">Kids Menu</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input checky" type="checkbox" id="hasBabyccinos" {{#ifEquals spot.hasBabyccinos 'Yes'}} checked {{/ifEquals}}/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasBabyccinos"
-						name="spot[hasBabyccinos]"
-						value="{{spot.hasBabyccinos}}"
-					/>
-					<label class="form-check-label" for="hasBabyccinos">Babyccinos</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input checky" type="checkbox" id="hasToys" {{#ifEquals spot.hasToys 'Yes'}} checked {{/ifEquals}}/>
-					<input
-						class="form-check-input"
-						type="hidden"
-						id="hiddenHasToys"
-						name="spot[hasToys]"
-						value="{{spot.hasToys}}"
-					/>
-					<label class="form-check-label" for="hasToys">Toys</label>
-				</div>
-			</section>
-			<div class="mb-3">
+				<section class="card-body">
+					<section class="form-check form-check-inline">
+						<input class="form-check-input checky" type="checkbox" id="hasChangeTable" {{#ifEquals spot.hasChangeTable 'Yes'}} checked {{/ifEquals}}/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasChangeTable"
+							name="spot[hasChangeTable]"
+							value="{{spot.hasChangeTable}}"
+						/>
+						<label class="form-check-label" for="hasChangeTable">Change Table</label>
+					</section>
+					<section class="form-check form-check-inline">
+						<input
+							class="form-check-input checky"
+							type="checkbox"
+							id="hasPublicToilet"
+							{{#ifEquals spot.hasPublicToilet 'Yes'}} checked {{/ifEquals}}
+						/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasPublicToilet"
+							name="spot[hasPublicToilet]"
+							value="{{spot.hasPublicToilet}}"
+						/>
+						<label class="form-check-label" for="hasPublicToilet">Public Toilet</label>
+					</section>
+					<section class="form-check form-check-inline">
+						<input class="form-check-input checky" type="checkbox" id="hasHighChairs" {{#ifEquals spot.hasHighChairs 'Yes'}} checked {{/ifEquals}}/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasHighChairs"
+							name="spot[hasHighChairs]"
+							value="{{spot.hasHighChairs}}"
+						/>
+						<label class="form-check-label" for="hasHighChairs">High Chairs</label>
+					</section>
+				</section>
+				<section class="card-body">
+					<section class="form-check form-check-inline">
+						<input class="form-check-input checky" type="checkbox" id="hasKidsMenu" {{#ifEquals spot.hasKidsMenu 'Yes'}} checked {{/ifEquals}}/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasKidsMenu"
+							name="spot[hasKidsMenu]"
+							value="{{spot.hasKidsMenu}}"
+						/>
+						<label class="form-check-label" for="hasKidsMenu">Kids Menu</label>
+					</section>
+					<section class="form-check form-check-inline">
+						<input class="form-check-input checky" type="checkbox" id="hasBabyccinos" {{#ifEquals spot.hasBabyccinos 'Yes'}} checked {{/ifEquals}}/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasBabyccinos"
+							name="spot[hasBabyccinos]"
+							value="{{spot.hasBabyccinos}}"
+						/>
+						<label class="form-check-label" for="hasBabyccinos">Babyccinos</label>
+					</section>
+					<section class="form-check form-check-inline">
+						<input class="form-check-input checky" type="checkbox" id="hasToys" {{#ifEquals spot.hasToys 'Yes'}} checked {{/ifEquals}}/>
+						<input
+							class="form-check-input"
+							type="hidden"
+							id="hiddenHasToys"
+							name="spot[hasToys]"
+							value="{{spot.hasToys}}"
+						/>
+						<label class="form-check-label" for="hasToys">Toys</label>
+					</section>
+				</section>
+			</article>
+			<section class="mb-3">
 				<label class="form-label" for="location">Location</label>
 				<input
 					class="form-control"
@@ -117,8 +119,8 @@
 				<div class="invalid-feedback">
 					Please add a location (-_-｡)
 				</div>
-			</div>
-			<div class="mb-3">
+			</section>
+			<section class="mb-3">
 				<div class="form-file custom-file">
 					<input
 						type="file"
@@ -132,8 +134,8 @@
 						<span class="form-file-button">Browse</span>
 					</label>
 				</div>
-			</div>
-			<div class="mb-3">
+			</section>
+			<section class="mb-3">
 				<label class="form-label" for="description">Description</label>
 				<textarea
 					class="form-control"
@@ -148,13 +150,13 @@
 				<div class="invalid-feedback">
 					Please give a description (-_-｡)
 				</div>
-			</div>
+			</section>
 			<div class="mb-3">
 				<button class="btn btn-info">Update spot</button>
 				<a class="btn btn-outline-secondary" href="/spots/{{spot._id}}">Back to
 					Spot</a>
 			</div>
 		</form>
-	</div>
-</div>
+	</section>
+</article>
 <script src="/js/events.js"></script>
