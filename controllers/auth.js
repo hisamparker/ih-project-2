@@ -28,6 +28,10 @@ module.exports.signupNewUser = async (req, res, next) => {
 };
 
 module.exports.renderLoginForm = (req, res, next) => {
+    const desiredPath = req.session.originalUrl || `/spots`;
+
+    console.log(`from get route : req.sess`, req.session.originalUrl, `desired`, desiredPath);
+    delete req.session.originalUrl;
     res.render(`users/login`);
 };
 
@@ -40,6 +44,7 @@ module.exports.loginUser = (req, res, next) => {
     // don't want to continue to store originalUrl on session because it could get weird later (after redirecting, it'll no longer be relevant yay sitepoints tutorial!)
     // www.w3schools.com/howto/howto_js_remove_property_object.asp
     console.log(`from post route : req.sess`, req.session.originalUrl, `desired`, desiredPath);
+    delete req.session.originalUrl;
     return res.redirect(desiredPath);
 };
 

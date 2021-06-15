@@ -126,7 +126,6 @@ hbs.registerHelper(`add`, function (value1, value2) {
 // capitalize all first letters (for names!)
 hbs.registerHelper(`capitalizeFirstLetters`, function (input) {
     const stringifiedInput = `${input}`;
-    console.log(`input`, stringifiedInput);
     const inputArray = stringifiedInput.split(` `);
     if (stringifiedInput.indexOf(` `) >= 0) {
         const capitalizedWords = inputArray.map((word) => word[0].toUpperCase() + word.slice(1)).join(` `);
@@ -187,6 +186,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 // tell app to use our locals so we can access stuff
 app.use((req, res, next) => {
+    console.log(`session`, req.session);
     // passport adds a user object to the request object, res.locals makes content accessible to all templates, so now templates have access to session user
     res.locals.sessionUser = req.user;
     // if flash.success has a value on the request object, use res.locals.success because of locals we don't have to pass the value to hbs templates because we always have access to success
