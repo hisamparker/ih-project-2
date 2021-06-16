@@ -16,22 +16,22 @@ const spotSchema = new Schema(
             unique: true,
         },
         hasChangeTable: {
-            type: String,
+            type: Boolean,
         },
         hasPublicToilet: {
-            type: String,
+            type: Boolean,
         },
         hasToys: {
-            type: String,
+            type: Boolean,
         },
         hasKidsMenu: {
-            type: String,
+            type: Boolean,
         },
         hasBabyccinos: {
-            type: String,
+            type: Boolean,
         },
         hasHighChairs: {
-            type: String,
+            type: Boolean,
         },
         author: {
             // not an array like usual because their is only ever 1 author

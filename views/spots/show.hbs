@@ -31,12 +31,12 @@
             </div>
             <div class='card-footer'>{{capitalizeFirstLetters spot.location }}</div>
             <ul class='list-group list-group-flush'>
-                <li class='list-group-item '>Change Table: {{ spot.hasChangeTable }} </li>
-                <li class='list-group-item '>Public Toilet: {{ spot.hasPublicToilet }} </li>
-                <li class='list-group-item '>High Chairs: {{ spot.hasHighChairs }} </li>
-                <li class='list-group-item '>Kids Menu: {{ spot.hasKidsMenu }} </li>
-                <li class='list-group-item '>Toys: {{ spot.hasToys }} </li>
-                <li class='list-group-item '>Babyccinos: {{ spot.hasBabyccinos }} </li>
+                <li class='list-group-item '>Change Table: {{#if spot.hasChangeTable }}Yes{{else}}No{{/if}} </li>
+                <li class='list-group-item '>Public Toilet: {{#if spot.hasPublicToilet }}Yes{{else}}No{{/if}} </li>
+                <li class='list-group-item '>High Chairs: {{#if spot.hasHighChairs }}Yes{{else}}No{{/if}} </li>
+                <li class='list-group-item '>Kids Menu: {{#if spot.hasKidsMenu }}Yes{{else}}No{{/if}} </li>
+                <li class='list-group-item '>Toys: {{#if spot.hasToys }}Yes{{else}}No{{/if}} </li>
+                <li class='list-group-item '>Babyccinos: {{#if spot.hasBabyccinos }}Yes{{else}}No{{/if}} </li>
             </ul>
             <div class='card-footer'>Thanks to {{capitalizeFirstLetters spot.author.username }} for sharing ♡</div>
            
