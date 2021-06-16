@@ -15,7 +15,6 @@ module.exports.createNewReview = async (req, res, next) => {
 
 module.exports.renderEditReviewForm = async (req, res, next) => {
     const { slug, id, reviewId } = req.params;
-    console.log(`edit`, slug);
     const review = await Review.findById(reviewId);
     if (!review) {
         req.flash(`error`, `Sorry, review not found.`);
@@ -26,7 +25,6 @@ module.exports.renderEditReviewForm = async (req, res, next) => {
 
 module.exports.editReview = async (req, res, next) => {
     const { slug, id, reviewId } = req.params;
-    console.log(slug);
     const updatedReview = await Review.findByIdAndUpdate(
         reviewId,
         { ...req.body.review },
@@ -34,7 +32,6 @@ module.exports.editReview = async (req, res, next) => {
         { runValidators: true }
     );
     await updatedReview.save();
-    console.log(`review`, updatedReview);
     req.flash(`success`, `You've successfully updated your review!`);
     return res.redirect(`/spots/${slug}/${id}`);
 };

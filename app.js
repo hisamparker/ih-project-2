@@ -81,7 +81,6 @@ app.use((req, res, next) => {
     res.locals.info = req.flash(`info`);
     // get access to mapbox token in hbs templates
     res.locals.map = process.env.MAPBOX_TOKEN;
-    console.log(req.query);
     // move on to next middleware
     next();
 });
@@ -92,7 +91,6 @@ app.use(`/spots`, spotRoutes);
 app.use(`/`, userRoutes);
 
 app.get(`/`, (req, res, next) => {
-    console.log(`(-_-｡)`);
     res.render(`home`);
 });
 

@@ -27,7 +27,7 @@ nav a:hover,
 nav::after {
 	border-bottom: 1px solid black;
 	content: "";
-	width: 68%;
+	width: 60%;
 	position: absolute;
 	bottom: 0;
 	left: 50%;

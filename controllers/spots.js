@@ -18,7 +18,6 @@ module.exports.renderNewSpotForm = (req, res, next) => {
 
 module.exports.createNewSpot = async (req, res, next) => {
     // get coordinates from mapbox api
-    console.log(`pre body`, req.body);
     const geocodingResponse = await geocodingService
         .forwardGeocode({
             query: req.body.spot.location,
@@ -32,9 +31,7 @@ module.exports.createNewSpot = async (req, res, next) => {
     // map any uploaded files into an object
     newSpot.images = req.files.map((file) => ({ url: file.path, filename: file.filename }));
     newSpot.author = req.user._id;
-    console.log(`pre save bod`, newSpot);
     const savedSpot = await newSpot.save();
-    console.log(savedSpot);
     if (!savedSpot) {
         req.flash(`error`, `Spot not added, please try again.`);
         return res.redirect(`/new`);
@@ -74,7 +71,6 @@ module.exports.editSpot = async (req, res, next) => {
 };
 
 module.exports.renderSelectedSpot = async (req, res, next) => {
-    console.log(`params`, req.params);
     const { id } = req.params;
     // populate reviews to get all info on reviews, populate author to get details of spot author, can now access spot.author.username
     const spot = await Spot.findById(id)
@@ -85,7 +81,6 @@ module.exports.renderSelectedSpot = async (req, res, next) => {
             },
         })
         .populate(`author`);
-    console.log(spot.reviews);
     if (!spot) {
         req.flash(`error`, `Sorry, spot not found.`);
         return res.redirect(`/spots`);
