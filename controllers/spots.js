@@ -87,7 +87,20 @@ module.exports.renderSelectedSpot = async (req, res, next) => {
     }
     const updatedAt = spot.updated_at;
     const formattedUpdatedAt = DateTime.fromJSDate(updatedAt).toFormat(`LLL dd yyyy`);
-    res.render(`spots/show`, { spot, updatedAt: formattedUpdatedAt });
+    const resizeImageUrls = (spotObject) => {
+        for (let i = 0; i < spotObject.images.length; i++) {
+            const insertionPoint = `/upload/`;
+            const desiredIndex = spotObject.images[i].url.lastIndexOf(insertionPoint) + insertionPoint.length;
+            spotObject.images[i].url = [
+                spotObject.images[i].url.slice(0, desiredIndex),
+                `c_fill,h_400,w_600/`,
+                spotObject.images[i].url.slice(desiredIndex),
+            ].join(``);
+        }
+        return spotObject;
+    };
+    const newSpotObject = resizeImageUrls(spot);
+    res.render(`spots/show`, { spot: newSpotObject, updatedAt: formattedUpdatedAt });
 };
 
 module.exports.destroySelectedSpot = async (req, res, next) => {

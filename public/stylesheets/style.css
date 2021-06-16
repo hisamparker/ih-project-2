@@ -66,3 +66,6 @@ nav::after {
 	background-color: #0fa5bb;
 	border-color: #0fa5bb;
 }
+.symbol {
+	vertical-align: 2px;
+}

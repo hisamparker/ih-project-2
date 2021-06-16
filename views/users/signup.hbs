@@ -46,18 +46,23 @@
 					class="form-label"
 					for="password"
 				>Password</label>
+				<p><small>6 - 12 characters, one number, one symbol, one uppercase and
+						one lowercase letter.</small></p>
 				<input
 					class="form-control"
+					title="Must be 6 - 12 characters and contain at least one number, one symbol, one uppercase and one lowercase letter."
 					type="password"
 					id="password"
 					name="password"
 					required
+					pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{6,12}$"
 				/>
 				<div class="valid-feedback">
 					Looks good!
 				</div>
 				<div class="invalid-feedback">
-					Please provide a password.
+					Password must be 6 - 12 characters, contain at least one number, one
+					symbol, one uppercase and one lowercase letter.
 				</div>
 			</section>
 			<section class="mb-3 d-flex justify-content-between">
