@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== `production`) {
 }
 // dependencies
 const express = require(`express`);
-const mongoose = require(`mongoose`);
+// const mongoose = require(`mongoose`);
 const hbs = require(`hbs`);
 // The path module provides functionality to access and interact with the file system (fs)
 const path = require(`path`);
@@ -12,41 +12,26 @@ const favicon = require(`serve-favicon`);
 const methodOverride = require(`method-override`);
 // The flash is a special area of the session used for storing messages https://www.npmjs.com/package/connect-flash
 const flash = require(`connect-flash`);
-// provides methods and properties related to a user's session (session is stored server side, but session ID is stored in http cookie)
-const session = require(`express-session`);
 // handling auth
 const passport = require(`passport`);
 // authenticate using a username and password
 const LocalStrategy = require(`passport-local`);
 const sanitizeMongo = require(`express-mongo-sanitize`);
-// MongoDB session store for Connect and Express written in Typescript. connect-mongo stores sessions in the "sessions" collection by default.
-const MongoStore = require(`connect-mongo`)(session);
-// const dbUrl = `mongodb://localhost:27017/${process.env.DB_NAME}`;
-const dbUrl = process.env.MONGO_ATLAS_URL;
-// init a new mongo store for session data, it needs the db url and a password, with mongostore you create a collection with session id,
-const store = new MongoStore({
-    url: dbUrl,
-    secret: process.env.MONGO_STORE_SECRET,
-    // so you don't resave session on db every time user refreshes, instead limit a period of time - if nothing has changed, only update every 24 hours
-    // in seconds not milliseconds like session, pffft
-    touchAfter: 24 * 60 * 60,
-});
 
-// To handle errors after initial connection was established, you should listen for error events on the connection.
-store.on(`error`, function (e) {
-    console.log(`session store error`, e);
-});
-
-// local require
+// local requires
 const spotRoutes = require(`./routes/spot.routes`);
 const reviewRoutes = require(`./routes/review.routes`);
 const userRoutes = require(`./routes/user.routes`);
+const User = require(`./models/user.model`);
 // Error handling class for handling errors (send message and status)
 const ErrorHandler = require(`./utils/ErrorHandlers`);
-const User = require(`./models/user.model`);
-require(`./configs/db.config`);
 
+// init appy app
 const app = express();
+
+// require db and session configs
+require(`./configs/db.config`);
+require(`./configs/session.config`)(app);
 
 app.use(favicon(path.join(__dirname, `public`, `images/favicon.ico`)));
 // set the view engine to hbs
@@ -73,23 +58,6 @@ app.use(express.static(path.join(__dirname, `public`)));
 // use mongo sanitize to remove characters (like $) from the query string that are used for mongo database injection https://www.netsparker.com/blog/web-security/what-is-nosql-injection/
 app.use(sanitizeMongo());
 
-// config session use store to store data in mongodb instead of memory, yay
-const configSession = {
-    store,
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        // Thanks Syntax podcast on auth
-        sameSite: true,
-        httpOnly: true,
-        // Date.now is in milliseconds so convert it to expire in a day from date session started (current day in milliseconds + (1000 * 60[seconds in a min] * 60[mins in an hour] * 24[hours in a day] )
-        expires: Date.now() + 1000 * 60 * 60 * 24,
-        maxAge: 1000 * 60 * 60 * 24,
-    },
-};
-// tell app to use session, tell session to use the configs we've specified
-app.use(session(configSession));
 // tell app to use flash, yay
 app.use(flash());
 // https://stackoverflow.com/questions/46644366/what-is-passport-initialize-nodejs-express
