@@ -1,6 +1,6 @@
-<article class="row">
+<article class="row justify-content-center">
 	<h1 class="text-center">New Spot</h1>
-	<div class="col-6 offset-3">
+	<div class="col-10 col-md-6">
 		{{! trying out bootstrap for validation, use color and words to validate because accessibility }}
 		{{! with dynamic routing don't use the / or you either get localhost3000/new or with spots/new you get spots/spots/new oof! }}
 		<form
@@ -177,9 +177,9 @@
 					Please give a description.
 				</div>
 			</section>
-			<div class="mb-3">
-				<button class="btn btn-info">Add Spot</button>
-				<a class="btn btn-outline-secondary" href="/spots">All Spots</a>
+			<div class="mb-3 d-flex justify-content-between">
+				<button class="btn btn_purple">Add Spot</button>
+				<a class="generic_link" href="/spots"><strong>ꙮ</strong> All Spots</a>
 			</div>
 		</form>
 	</div>

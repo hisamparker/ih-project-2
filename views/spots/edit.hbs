@@ -1,6 +1,6 @@
-<article class="row">
+<article class="row justify-content-center">
 	<h1 class="text-center">Edit Spot</h1>
-	<section class="col-6 offset-3">
+	<section class="col-10 col-md-6">
 		<form
 			action="edit?_method=PUT"
 			method="POST"
@@ -151,9 +151,9 @@
 					Please give a description (-_-｡)
 				</div>
 			</section>
-			<div class="mb-3">
-				<button class="btn btn-info">Update spot</button>
-				<a class="btn btn-outline-secondary" href="/spots/{{spot._id}}">Back to
+			<div class="mb-3 d-flex justify-content-between">
+				<button class="btn btn_purple">Update spot</button>
+				<a class="generic_link mt-1" href="/spots/{{spot.slug}}/{{spot._id}}"><strong>↶</strong> Back to
 					Spot</a>
 			</div>
 		</form>

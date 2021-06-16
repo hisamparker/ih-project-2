@@ -2,13 +2,67 @@
 	justify-content: space-between;
 } */
 
-#delete {
+#button_link {
 	border: none;
 	background: none;
-	color: #0d6efd;
+}
+
+nav {
+	background: white;
+}
+
+nav a,
+.generic_link,
+.generic_link button {
+	color: #000;
+	text-decoration: none;
+}
+nav a:hover,
+.generic_link:hover,
+.generic_link button:hover {
+	color: #000;
 	text-decoration: underline;
 }
 
-#delete:hover {
-	color: #024dbc;
+nav::after {
+	border-bottom: 1px solid black;
+	content: "";
+	width: 68%;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+
+.navbar-brand span {
+	font-size: 3rem;
+}
+/* target the siblings of the first span in .navbar-brand */
+.navbar-brand span + span {
+	margin-left: 5px;
+	letter-spacing: -0.52em;
+	opacity: 0;
+	transition: all 0.3s ease-out;
+}
+
+.navbar-brand:hover span + span {
+	letter-spacing: 0.1em;
+	opacity: 1;
+}
+
+.navbar-brand:hover {
+	text-decoration: none;
+}
+
+.btn_purple {
+	background: #c9b2fd;
+}
+
+.review_edit {
+	background: #c9b2fd;
+}
+
+.form-check-input:checked {
+	background-color: #0fa5bb;
+	border-color: #0fa5bb;
 }

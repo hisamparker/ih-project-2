@@ -81,6 +81,7 @@ const configSession = {
     saveUninitialized: true,
     cookie: {
         // Thanks Syntax podcast on auth
+        sameSite: true,
         httpOnly: true,
         // Date.now is in milliseconds so convert it to expire in a day from date session started (current day in milliseconds + (1000 * 60[seconds in a min] * 60[mins in an hour] * 24[hours in a day] )
         expires: Date.now() + 1000 * 60 * 60 * 24,
