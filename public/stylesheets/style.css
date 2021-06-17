@@ -69,3 +69,29 @@ nav::after {
 .symbol {
 	vertical-align: 2px;
 }
+
+.kid_friendly__li {
+	width: 50%;
+	border-bottom: none;
+	border-left: none;
+}
+
+.kid_friendly__ul:nth-child(2) {
+	border-right: none;
+}
+
+.kid_friendly__uls > * + * {
+	border-top: none;
+	border-radius: 0px;
+}
+
+/* because bootstrap :( */
+.list-group-horizontal > .list-group-item:last-child {
+	border-top-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.list-group-horizontal > .list-group-item:first-child {
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 0;
+}
