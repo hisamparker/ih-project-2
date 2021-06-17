@@ -30,14 +30,20 @@
                 <p class='card-text'>{{ capitalizeFirstLetter spot.description }}</p>
             </div>
             <div class='card-footer'>{{capitalizeFirstLetters spot.location }}</div>
-            <ul class='list-group list-group-flush'>
-                <li class='list-group-item '>Change Table: {{#if spot.hasChangeTable }}Yes{{else}}No{{/if}} </li>
-                <li class='list-group-item '>Public Toilet: {{#if spot.hasPublicToilet }}Yes{{else}}No{{/if}} </li>
-                <li class='list-group-item '>High Chairs: {{#if spot.hasHighChairs }}Yes{{else}}No{{/if}} </li>
-                <li class='list-group-item '>Kids Menu: {{#if spot.hasKidsMenu }}Yes{{else}}No{{/if}} </li>
-                <li class='list-group-item '>Toys: {{#if spot.hasToys }}Yes{{else}}No{{/if}} </li>
-                <li class='list-group-item '>Babyccinos: {{#if spot.hasBabyccinos }}Yes{{else}}No{{/if}} </li>
+            <div class="kid_friendly__uls">
+            <ul class="list-group list-group-horizontal kid_friendly__ul">
+                <li class="list-group-item kid_friendly__li"> Change Table:  <strong>{{#if spot.hasChangeTable }}Yes{{else}}No{{/if}}</strong></li>
+                <li class="list-group-item kid_friendly__li"> Public Toilet:  <strong>{{#if spot.hasPublicToilet }}Yes{{else}}No{{/if}}</strong></li>
             </ul>
+            <ul class="list-group list-group-horizontal kid_friendly__ul">
+                <li class="list-group-item kid_friendly__li"> High Chairs:  <strong>{{#if spot.hasHighChairs }}Yes{{else}}No{{/if}}</strong></li>
+                <li class="list-group-item kid_friendly__li"> Toys:  <strong>{{#if spot.hasToys }}Yes{{else}}No{{/if}}</strong></li>
+            </ul>
+            <ul class="list-group list-group-horizontal kid_friendly__ul">
+                <li class="list-group-item kid_friendly__li"> Kids Menu:  <strong>{{#if spot.hasKidsMenu }}Yes{{else}}No{{/if}}</strong></li>
+                <li class="list-group-item kid_friendly__li"> Babyccinos:  <strong>{{#if spot.hasBabyccinos }}Yes{{else}}No{{/if}}</strong></li>
+            </ul>
+            </div>
             <div class='card-footer'>Thanks to {{capitalizeFirstLetters spot.author.username }} for sharing ♡</div>
            
             <div class='card-footer text-muted'>
