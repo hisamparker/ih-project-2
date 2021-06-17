@@ -9,6 +9,7 @@ const spotSchema = new Schema(
             type: String,
             lowercase: true,
             trim: true,
+            required: true,
         },
         slug: {
             type: String,
