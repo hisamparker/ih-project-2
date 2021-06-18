@@ -13,7 +13,8 @@ nav {
 
 nav a,
 .generic_link,
-.generic_link button {
+.generic_link button,
+.card_title__link a {
 	color: #000;
 	text-decoration: none;
 }

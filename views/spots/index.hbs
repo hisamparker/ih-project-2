@@ -6,11 +6,17 @@
 	<div class="card mb-3">
 		<div class="row">
 			<div class="col-md-4">
-				<img src="{{images.0.url}}" alt="spot image" class="img-fluid" />
+				<a href="/spots/{{this.slug}}/{{this._id}}"><img
+						src="{{images.0.url}}"
+						alt="spot image"
+						class="img-fluid"
+					/></a>
 			</div>
 			<div class="col-md-8">
 				<div class="card-body">
-					<h5 class="card-title">{{capitalizeFirstLetters name}}</h5>
+					<h5 class="card-title card_title__link"><a
+							href="/spots/{{this.slug}}/{{this._id}}"
+						>{{capitalizeFirstLetters name}}</a></h5>
 					<p class="card-text">{{capitalizeFirstLetter description}}</p>
 					<p class="card-text"><small
 							class="text-muted"

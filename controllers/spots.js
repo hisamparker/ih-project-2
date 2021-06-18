@@ -22,6 +22,7 @@ module.exports.index = async (req, res, next) => {
 };
 
 module.exports.renderNewSpotForm = (req, res, next) => {
+    req.session.originalUrl = req.originalUrl;
     res.render(`spots/new`);
 };
 
@@ -33,6 +34,13 @@ module.exports.createNewSpot = async (req, res, next) => {
             limit: 1,
         })
         .send();
+    // not an ideal solution, don't know how to stop submit form and just flash message?
+    if (!geocodingResponse.body.features[0]) {
+        req.flash(`error`, `Please enter a valid location.`);
+        const desiredPath = req.session.originalUrl;
+        delete req.session.originalUrl;
+        return res.redirect(desiredPath);
+    }
     // this returns geoJSON
     const spotGeometry = geocodingResponse.body.features[0].geometry;
     const newSpot = new Spot(req.body.spot);
@@ -51,6 +59,7 @@ module.exports.createNewSpot = async (req, res, next) => {
 };
 
 module.exports.renderEditSpotForm = async (req, res, next) => {
+    req.session.originalUrl = req.originalUrl;
     const spot = await Spot.findById(req.params.id);
     if (!spot) {
         req.flash(`error`, `Sorry, spot not found.`);
@@ -68,8 +77,14 @@ module.exports.editSpot = async (req, res, next) => {
         })
         .send();
     // this returns geoJSON
-    const spotGeometry = geocodingResponse.body.features[0].geometry;
     const { id } = req.params;
+    if (!geocodingResponse.body.features[0]) {
+        req.flash(`error`, `Please enter a valid location.`);
+        const desiredPath = req.session.originalUrl;
+        delete req.session.originalUrl;
+        return res.redirect(desiredPath);
+    }
+    const spotGeometry = geocodingResponse.body.features[0].geometry;
     const updatedSpot = await Spot.findByIdAndUpdate(
         id,
         { ...req.body.spot },
@@ -106,20 +121,12 @@ module.exports.renderSelectedSpot = async (req, res, next) => {
     }
     const updatedAt = spot.updated_at;
     const formattedUpdatedAt = DateTime.fromJSDate(updatedAt).toFormat(`LLL dd yyyy`);
-    const resizeImageUrls = (spotObject) => {
-        for (let i = 0; i < spotObject.images.length; i++) {
-            const insertionPoint = `/upload/`;
-            const desiredIndex = spotObject.images[i].url.lastIndexOf(insertionPoint) + insertionPoint.length;
-            spotObject.images[i].url = [
-                spotObject.images[i].url.slice(0, desiredIndex),
-                `c_fill,h_400,w_600/`,
-                spotObject.images[i].url.slice(desiredIndex),
-            ].join(``);
-        }
-        return spotObject;
-    };
-    const newSpotObject = resizeImageUrls(spot);
-    res.render(`spots/show`, { spot: newSpotObject, updatedAt: formattedUpdatedAt });
+    for (const image of spot.images) {
+        const insertionPoint = `/upload/`;
+        const desiredIndex = image.url.lastIndexOf(insertionPoint) + insertionPoint.length;
+        image.url = [image.url.slice(0, desiredIndex), `c_fill,h_400,w_600/`, image.url.slice(desiredIndex)].join(``);
+    }
+    res.render(`spots/show`, { spot, updatedAt: formattedUpdatedAt });
 };
 
 module.exports.destroySelectedSpot = async (req, res, next) => {
