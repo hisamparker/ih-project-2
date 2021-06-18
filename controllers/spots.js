@@ -26,7 +26,7 @@ module.exports.renderNewSpotForm = (req, res, next) => {
 };
 
 module.exports.createNewSpot = async (req, res, next) => {
-    // get coordinates from mapbox api
+    // get coordinates from mapbox api ??? Maybe this could be a helper?
     const geocodingResponse = await geocodingService
         .forwardGeocode({
             query: req.body.spot.location,
@@ -60,6 +60,15 @@ module.exports.renderEditSpotForm = async (req, res, next) => {
 };
 
 module.exports.editSpot = async (req, res, next) => {
+    // get coordinates from mapbox api
+    const geocodingResponse = await geocodingService
+        .forwardGeocode({
+            query: req.body.spot.location,
+            limit: 1,
+        })
+        .send();
+    // this returns geoJSON
+    const spotGeometry = geocodingResponse.body.features[0].geometry;
     const { id } = req.params;
     const updatedSpot = await Spot.findByIdAndUpdate(
         id,
@@ -74,6 +83,7 @@ module.exports.editSpot = async (req, res, next) => {
     }));
     // spread the new images and push them onto updatedSpot.images
     updatedSpot.images.push(...newImages);
+    updatedSpot.geometry = spotGeometry;
     await updatedSpot.save();
     req.flash(`success`, `You've made your spot even cuter!`);
     return res.redirect(`/spots/${updatedSpot.slug}/${updatedSpot._id}`);

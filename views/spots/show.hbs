@@ -134,7 +134,7 @@
                     {{#ifEquals author._id ../sessionUser._id}}
                     <div class='card-footer d-flex justify-content-between'>
                         <a href='/spots/{{../spot.slug}}/{{ ../spot._id }}/reviews/{{this._id}}/edit' class='generic_link'><strong>✎</strong> Edit</a>
-                        <form class='d-inline ml-3' action='/spots/{{../spot.slug}}/{{ ../spot._id }}/reviews/{{ this._id }}?_method=DELETE' method='POST'>   
+                        <form class='d-inline ml-3' onclick="return confirm('Are you sure you want to delete your review?')" action='/spots/{{../spot.slug}}/{{ ../spot._id }}/reviews/{{ this._id }}?_method=DELETE' method='POST'>   
                             <button id="button_link" class='generic_link'><strong>⚠</strong> Delete Review</button>
                         </form>
                     </div>   
