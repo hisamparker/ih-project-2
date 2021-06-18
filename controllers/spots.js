@@ -9,6 +9,15 @@ const geocodingService = geocodingClient({ accessToken: process.env.MAPBOX_TOKEN
 
 module.exports.index = async (req, res, next) => {
     const spots = await Spot.find({});
+    spots.forEach((spot) => {
+        const insertionPoint = `/upload/`;
+        const desiredIndex = spot.images[0].url.lastIndexOf(insertionPoint) + insertionPoint.length;
+        spot.images[0].url = [
+            spot.images[0].url.slice(0, desiredIndex),
+            `c_fill,h_275,w_415/`,
+            spot.images[0].url.slice(desiredIndex),
+        ].join(``);
+    });
     res.render(`spots/index`, { spots });
 };
 
