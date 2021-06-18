@@ -26,28 +26,42 @@ nav a:hover,
 }
 
 nav::after {
-	border-bottom: 1px solid black;
+	/* ::before and ::after are pseudo-elements, and require a content attribute to exist. Often, we make it empty, because we are using these pseudo-elements to do funky little visual UI tricks, that have no content within. Also, mixing content and style feels wrong. */
 	content: "";
-	width: 60%;
+	/* border on the bottom */
+	border-bottom: 1px solid black;
+
+	/* All the following is positioning stuff. It is absolute, so it is out of the flow, and we can put it wherever we want. We are putting it at the bottom of its (relative) parent, and we position its left-side 50% across the width of its parent (from the left). */
 	position: absolute;
+	width: 60%;
 	bottom: 0;
 	left: 50%;
+	/* THEN we use the transform:translate to move it back to the left, but this time, just 50% of its OWN width. The effect of moving it right 50% of its parent, and left 50% of its own width, centers it in its parent. magic! */
 	transform: translate(-50%, 0);
 }
 
 .navbar-brand span {
 	font-size: 3rem;
 }
+
+/* the navbar-brand has two <span> children. The first contains the 'C'. The second contains the 'utespot' */
 /* target the siblings of the first span in .navbar-brand */
 .navbar-brand span + span {
 	margin-left: 5px;
+	/* we change the letter spacing to negative, so that the letters bunch up on top of each other. We use 'em' so that the spacing is relative to the element's font-size */
 	letter-spacing: -0.52em;
+	/* make it disappear */
 	opacity: 0;
+	/* we want it to animate -- just means move. when a css attribute changes, it will 'tween' between its old value and its new */
+	/* we could target the transition to just work on opacity and letter-spacing, but 'all' is quick here*/
 	transition: all 0.3s ease-out;
 }
 
 .navbar-brand:hover span + span {
+	/* on hover, we spread the letters out again */
+	/* since we set the transition (animate) to apply to all attributes, this change in letter-spacing will be animated (from its old value of -0.52em to its new of 0.1em) */
 	letter-spacing: 0.1em;
+	/* make it visible -- the transition:all will also apply to the opacity, so the opacity will also animate between its old value (0 - transparent) and its new (1 - opaque)*/
 	opacity: 1;
 }
 
@@ -95,4 +109,10 @@ nav::after {
 .list-group-horizontal > .list-group-item:first-child {
 	border-bottom-left-radius: 0;
 	border-top-right-radius: 0;
+}
+
+#easterPayload {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
 }

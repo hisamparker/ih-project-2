@@ -94,6 +94,10 @@ app.get(`/`, (req, res, next) => {
     res.render(`home`);
 });
 
+app.get(`/easter`, (req, res, next) => {
+    res.render(`easter`);
+});
+
 // express doesn't treat 404s as errors, so we say for everything that happens, if there's a prob, create a new instance of the error class and pass in a page not found message and a 404 status code
 app.all(`*`, (req, res, next) => {
     next(new ErrorHandler(`Page Not Found`, 404));
