@@ -14,19 +14,19 @@
 					id="no-rate"
 					class="input-no-rate"
 					name="review[rating]"
+					{{#ifEquals review.rating 0}} checked=true {{/ifEquals}} 
 					value="0"
-					checked
 					aria-label="No review."
 				/>
-				<input type="radio" id="first-rate1" name="review[rating]" value="1" />
+				<input type="radio" id="first-rate1" name="review[rating]" {{#ifEquals review.rating 1}} checked=true {{/ifEquals}} value="1" />
 				<label for="first-rate1" title="Terrible">1 star</label>
-				<input type="radio" id="first-rate2" name="review[rating]" value="2" />
+				<input type="radio" id="first-rate2" name="review[rating]" {{#ifEquals review.rating 2}} checked=true {{/ifEquals}} value="2" />
 				<label for="first-rate2" title="Not good">2 stars</label>
-				<input type="radio" id="first-rate3" name="review[rating]" value="3" />
+				<input type="radio" id="first-rate3" name="review[rating]" {{#ifEquals review.rating 3}} checked=true {{/ifEquals}} value="3" />
 				<label for="first-rate3" title="Average">3 stars</label>
-				<input type="radio" id="first-rate4" name="review[rating]" value="4" />
+				<input type="radio" id="first-rate4" name="review[rating]" {{#ifEquals review.rating 4}} checked=true {{/ifEquals}} value="4" />
 				<label for="first-rate4" title="Very good">4 stars</label>
-				<input type="radio" id="first-rate5" name="review[rating]" value="5" />
+				<input type="radio" id="first-rate5" name="review[rating]" {{#ifEquals review.rating 5}} checked=true {{/ifEquals}} value="5" />
 				<label for="first-rate5" title="Amazing">5 stars</label>
 			</fieldset>
 			<section class="mb-3">
