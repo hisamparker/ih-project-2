@@ -8,6 +8,7 @@ const geocodingClient = require(`@mapbox/mapbox-sdk/services/geocoding`);
 const geocodingService = geocodingClient({ accessToken: process.env.MAPBOX_TOKEN });
 
 module.exports.index = async (req, res, next) => {
+    req.session.originalUrl = req.originalUrl;
     const spots = await Spot.find({});
     spots.forEach((spot) => {
         const insertionPoint = `/upload/`;
@@ -53,6 +54,7 @@ module.exports.createNewSpot = async (req, res, next) => {
         req.flash(`error`, `Spot not added, please try again.`);
         return res.redirect(`/new`);
     }
+    delete req.session.originalUrl;
     // flash a success message before redirecting to the new spot
     req.flash(`success`, `You added a new cute spot, thanks!`);
     res.redirect(`/spots/${savedSpot.slug}/${savedSpot._id}`);
@@ -105,6 +107,7 @@ module.exports.editSpot = async (req, res, next) => {
 };
 
 module.exports.renderSelectedSpot = async (req, res, next) => {
+    req.session.originalUrl = req.originalUrl;
     const { id } = req.params;
     // populate reviews to get all info on reviews, populate author to get details of spot author, can now access spot.author.username
     const spot = await Spot.findById(id)
