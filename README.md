@@ -50,8 +50,9 @@ You can also see all my planning for Cute Spot and a whole list of mistakes I ma
 
 #### Fun
 
-look! a readme from the 70s : http://pdp-10.trailing-edge.com/decus_20tap3_198111/01/decus/20-0079/readme.txt.html
-https://ho99o9.bandcamp.com/releases
+Look! a readme from the 70s : http://pdp-10.trailing-edge.com/decus_20tap3_198111/01/decus/20-0079/readme.txt.html
+
+[![Spotify](https://spotify-github-readme.vercel.app/api/spotify)](https://open.spotify.com/playlist/6Up11T3Ba6jLovbHBF8wiv?si=5c83a2b80bc74e05)
 
 ## License
 
