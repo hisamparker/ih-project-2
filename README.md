@@ -1,4 +1,4 @@
-## Cute spot
+# Cute spot
 
 This is a very basic CRUD app built with node & express. It has signup, login, basic auth stuff (with Passport, not from scratch, sorry). Cute spot has 3 models, user, spot, and review. Both spot and review are CRUDable.
 
@@ -18,13 +18,25 @@ The prereqs for this project are in the package.json file... I guess you need no
 
 <b>Built with</b>
 
-- [nodejs](https://nodejs.org/en/)
-- [expressjs](http://expressjs.com/)
-- [mongodb](https://www.mongodb.com/)
+❤️ [nodejs](https://nodejs.org/en/)
+❤️ [expressjs](http://expressjs.com/)
+❤️ [mongodb](https://www.mongodb.com/)
 
 ## Installation
 
-npm install
+Fill in the .env file with your own stuff!
+
+### install dependencies
+
+❤️ npm install
+
+### run in development
+
+❤️ npm run dev
+
+### run in production
+
+❤️ npm run start
 
 ## Contribute
 
