@@ -26,12 +26,9 @@ The prereqs for this project are in the package.json file... I guess you need no
 
 Fill in the .env file with your own stuff!
 
-###Install
-
-♡ npm install
-♡ npm run dev
-OR
-♡ npm run start
+INSTALL ♡ npm install
+DEV ♡ npm run dev
+PRODUCTION ♡ npm run start
 
 ## Contribute
 
