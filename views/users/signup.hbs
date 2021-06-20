@@ -1,6 +1,6 @@
-<article class="row">
+<article class="row justify-content-center">
 	<h1 class="text-center">Yay, signup!</h1>
-	<div class="col-6 offset-3">
+	<div class="col-10 col-md-6">
 		<form action="/signup" method="POST" novalidate class="validated_form">
 			<section class="mb-3">
 				<label aria-label="user name" class="form-label" for="username">User
@@ -65,15 +65,12 @@
 					symbol, one uppercase and one lowercase letter.
 				</div>
 			</section>
-			<section class="mb-3 d-flex justify-content-between">
-				<button aria-label="sing up" class="btn btn_purple">Sign Up</button>
-				<div aria-label="sign up" class="text-muted">
-					Already have an account?
-					<a
-						href="/login"
-						type="button"
-						class="btn btn-outline-secondary ml-2"
-					>Log in</a>
+			<section class="mb-3 d-flex flex-wrap justify-content-between">
+				<button aria-label="sing up" class="btn btn_purple mt-2">Sign Up</button>
+				<div aria-label="sign up" class="text-muted mt-2">
+					<span class="d-inline-block mt-2 mx-2">Already have an account?</span>
+					<a href="/login" type="button" class="btn btn-outline-secondary">Log
+						in</a>
 				</div>
 			</section>
 		</form>
