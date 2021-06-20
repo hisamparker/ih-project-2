@@ -18,25 +18,20 @@ The prereqs for this project are in the package.json file... I guess you need no
 
 <b>Built with</b>
 
-❤️ [nodejs](https://nodejs.org/en/)
-❤️ [expressjs](http://expressjs.com/)
-❤️ [mongodb](https://www.mongodb.com/)
+♡ [nodejs](https://nodejs.org/en/)
+♡ [expressjs](http://expressjs.com/)
+♡ [mongodb](https://www.mongodb.com/)
 
 ## Installation
 
 Fill in the .env file with your own stuff!
 
-### install dependencies
+###Install
 
-❤️ npm install
-
-### run in development
-
-❤️ npm run dev
-
-### run in production
-
-❤️ npm run start
+♡ npm install
+♡ npm run dev
+OR
+♡ npm run start
 
 ## Contribute
 
@@ -50,12 +45,14 @@ You can also see all my planning for Cute Spot and a whole list of mistakes I ma
 
 #### Fun
 
+[On Heroku](https://cute-spot.herokuapp.com/)
+
 Look! a readme from the 70s : http://pdp-10.trailing-edge.com/decus_20tap3_198111/01/decus/20-0079/readme.txt.html
 
 [cute-spot playlist](https://open.spotify.com/playlist/6Up11T3Ba6jLovbHBF8wiv?si=5c83a2b80bc74e05)
 
 ## License
 
-❤️ see license file for neat gnu stuff ❤️
+♡ see license file for neat gnu stuff ♡
 
 GNU General Public License v3.0 © 2021 [sam](http://samaraparker.com/)
