@@ -28,15 +28,15 @@ Fill in the .env file with your own stuff!
 
 #### INSTALL
 
-♡ npm install
+♡ `npm install`
 
 #### DEV
 
-♡ npm run dev
+♡ `npm run dev`
 
 #### PRODUCTION
 
-♡ npm run start
+♡ `npm run start`
 
 ## Contribute
 

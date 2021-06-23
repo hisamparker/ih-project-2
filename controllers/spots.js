@@ -1,11 +1,12 @@
 // Controllers are (typically) callback functions that correspond to routes (get, post, put, etc...). Controllers shrink the routes down and make them easier to read, they also keep code DRY.
-const Spot = require(`../models/spot.model`);
 const { DateTime } = require(`luxon`);
 const { urlencoded } = require(`express`);
 // To create a service client, import the service's factory function from '@mapbox/mapbox-sdk/services/{service}'
 // provide it with your access token.
 const geocodingClient = require(`@mapbox/mapbox-sdk/services/geocoding`);
 const geocodingService = geocodingClient({ accessToken: process.env.MAPBOX_TOKEN });
+// Local require
+const Spot = require(`../models/spot.model`);
 
 module.exports.index = async (req, res, next) => {
     req.session.originalUrl = req.originalUrl;
